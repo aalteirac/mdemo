@@ -25,4 +25,4 @@ FOR QLIK SENSE Server
   
   From "mdemo-master" --> to "mdemo"
   
-  Open a browser: http(s)://senseserver/resources/mdemo/index.html
+  Open a browser: http(s)://<my_senseserver>/resources/mdemo/index.html
