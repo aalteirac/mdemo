@@ -1,0 +1,43 @@
+@import url(http://fonts.googleapis.com/css?family=Archivo+Black); /* Archivo Black */
+
+#socialside {
+    position: absolute;
+    top: 40px;
+    left: 0;
+}
+.mainul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: right;
+}
+
+.scli {
+    position: relative;
+    width: 132px;
+    list-style: none;
+    border-radius: 0 8px 8px 0;
+    margin-left: -140px;
+    left:0;
+    cursor: pointer;
+    
+}
+
+.scli img {
+    background-color: #333;
+    border-radius: 0 5px 5px 0;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top:0;
+}
+
+.scli li {
+    height: 30px;
+    line-height: 30px;
+    margin: 5px 0;
+    padding-right: 50px;
+    font-family: "Archivo Black";
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+}

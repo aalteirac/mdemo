@@ -1,0 +1,203 @@
+    <style>
+        .qv-panel-current-selections .buttons .qv-subtoolbar-button, .qv-panel-current-selections .buttons-end .qv-subtoolbar-button{
+            border-bottom: 0px;
+        }
+        .wrap.borderbox,.qv-panel-current-selections .buttons{
+            border-right: 0px !important;
+        }
+        .qv-panel-current-selections .buttons-end{
+            box-shadow:0px 0px 0px 0px rgba(64, 63, 62, 0.4);
+        }
+        .qv-panel-current-selections,.qv-panel-current-selections .buttons, .qv-panel-current-selections .buttons-end,.qv-panel-current-selections .buttons .qv-subtoolbar-button, .qv-panel-current-selections .buttons-end .qv-subtoolbar-button{
+            background: none;
+            color: #808080;
+        }
+        .qv-panel-current-selections .buttons .qv-subtoolbar-button:hover:enabled, .qv-panel-current-selections .buttons-end .qv-subtoolbar-button:hover:enabled,.qv-panel-current-selections .buttons-end .qv-subtoolbar-button.active{
+            background:none;
+        }
+
+        .qv-panel-current-selections .buttons .qv-subtoolbar-button i:hover, .qv-panel-current-selections .buttons-end .qv-subtoolbar-button i:hover{
+            background: none;
+        }
+        .qv-panel-current-selections .wrap{
+            border-bottom-width:0px;
+        }
+        .qv-panel-current-selections .buttons .qv-subtoolbar-button:disabled, .qv-panel-current-selections .buttons-end .qv-subtoolbar-button:disabled {
+            background: none;
+            color: #C4C4C4;
+        }
+        .qv-panel-current-selections .no-selection{
+            color: #808080;
+        }
+        .qv-panel-current-selections .item{
+            color: #808080;
+        }
+        /*.qv >  .floor .text {color: white;font-size: 40px;font-weight: 500;text-align: center;position: absolute;top: 50%;left: 50%;-moz-transform: translateX(-50%) translateY(-50%);-webkit-transform: translateX(-50%) translateY(-50%);transform: translateX(-50%) translateY(-50%);}*/
+        .qv >  .floor {width: 100%;height: 100%}
+        .qv >  .floor-1{background: #F9B233;}.floor-2{background: #71B5E5;}.floor-3{background: #B3CE4A;}
+        .qv >  .floor-4{background: #EB5D45;}
+        .qv >  .floor-5{background: #4AAEB6;}
+        .qv > .floor-6{background: #E7DFBF;}
+        .qv > .floor-7{background: #CA9E67;}
+        .qv > .floor-8{background: #4fade3;}
+        .well{ margin-bottom: 20px;margin-top: 20px}
+        .height9{height: 85%}
+        .marg{margin-top: 20px}
+        /*.links-to-floor{position: absolute;top: 20px;left: 20px;}*/
+        .prev-next-links{ height: 40px; font-size: 20px;list-style: none;display: inline;position: absolute;top: 10px;right: 20px;}
+        .prev,.next{display: inline}
+        .height{height: 100%}
+        .qv >.row.fullWidth{width: 99%;margin-left: 1px}
+        .scope > .glyphicon{margin-left: 20px;cursor: pointer}
+        .scope > .glyphicon:hover{font-size: 24px}
+    </style>
+
+<div style="height: 100%;overflow: auto">
+    <div id="ascensorBuilding">
+        <div class="floor floor-1">
+            <div class="row fullWidth height9 qv">
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV01" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height">
+                        <div id="QV02" class="qvplaceholder qvtarget height" ></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV03" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV04" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="floor floor-2">
+            <div class="row fullWidth height9 qv">
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV05" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height">
+                        <div id="QV06" class="qvplaceholder qvtarget height" ></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV07" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV08" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="floor floor-3">
+            <div class="row fullWidth height9 qv">
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV09" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height">
+                        <div id="QV10" class="qvplaceholder qvtarget height" ></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV11" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV12" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="floor floor-4">
+            <div class="row fullWidth height9 qv">
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV13" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height">
+                        <div id="QV14" class="qvplaceholder qvtarget height" ></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV15" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV16" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="floor floor-5">
+            <div class="row fullWidth height9 qv">
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV17" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height">
+                        <div id="QV18" class="qvplaceholder qvtarget height" ></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV19" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+                <div class="marg col-md-6 qv" style="height:50%">
+                    <div class="well height qv">
+                        <div id="QV20" class="qvplaceholder qvtarget height"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav>
+        <ul class="prev-next-links">
+            <li class="scope prev" ><span class="qv glyphicon glyphicon-hand-left"></span></li>
+            <li class="scope next" ><span class="qv glyphicon glyphicon-hand-right"></span></li>
+        </ul>
+    </nav>
+</div>
+<div id="CurrentSelections" style="position:fixed;bottom:0px;width:100%" ng-show="selections" data-qvid="CurrentSelections" class="qvobject"></div>
+<script src="templates/ascensor/js/jquery.ascensor.js"></script>
+<script>
+    var ascensor = $('#ascensorBuilding').ascensor({jump: true, direction: [[0,0],[1,1],[0,1],[1,0],[2,0]],time:1000});
+    var ascensorInstance = $('#ascensorBuilding').data('ascensor');
+    var floorAdded = false;
+
+    $(".prev").click(function() {
+        ascensorInstance.prev();
+    });
+
+    $(".next").click(function() {
+        ascensorInstance.next();
+    });
+
+    $(".direction").click(function() {
+        ascensorInstance.scrollToDirection($(this).data("direction"));
+    });
+</script>

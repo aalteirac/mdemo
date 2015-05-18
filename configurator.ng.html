@@ -1,0 +1,95 @@
+<div ng-init="init()" id="col" ng-click="hideBar()" style="z-index:200;font-size:25px;position:fixed;top:50%;height:100%;cursor:pointer" ><img src="img/col.png"/></div>
+<div  id="sidebar-wrapper"  >
+    <ul style="position:relative" class="qv sidebar-nav">
+        <li class="qv sidebar-brand"><a href="javascript:void(0)">Start Mashup's !</a>
+        </li>
+        <li><a style="padding-left:100px;"title="Clear Custom Text" href="javascript:void(0)" onclick="localStorage.clear();window.location = window.location">Clear All</a>
+        </li>
+        <li><a style="margin-bottom: 40px;padding-left:100px;"title="Right-click on any object to switch Selections box..." href="javascript:void(0)" ng-click="toggleSel()">Toggle Selections</a>
+        </li>
+        <li style="margin-bottom: 20px" class="qv">
+            <div style="margin-left:8px" class="qv btn-group">
+                <button style="height:48px;color:#6D6D6D;width:299px;text-align:left" type="button" class="qv btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <div style="display:inline-block;padding-left:5px;padding-right:3px;font-size:15px" class="qv glyphicon glyphicon-folder-open"></div>
+                    <div style="padding-left:5px;display:inline-block;width:220px;overflow:hidden;vertical-align:sub;text-overflow:ellipsis">{{curApp}} </div>
+                    <span style="margin-top: 8px" class="qv caret big"></span>
+                </button>
+                <ul style="color:#6D6D6D;width:100%;max-height: 500px;overflow: auto"  class="qv dropdown-menu scrollable" role="menu" >
+                    <li ng-repeat="app in apps | filter:queryapp" class="qv" ng-class="{header: app.type === 'sheet', active: appId === app.id}" data-id="{{app.id}}" data-type="{{app.type}}" qva-activate="selectApp($event)" title="{{app.id}}">
+                        <span class="qv glyphicon glyphicon-file"></span>
+                        {{app.type}}
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="qv">
+            <div style="margin-left:8px" class="qv btn-group">
+                <button style="height:48px;color:#6D6D6D;width:299px;text-align:left" type="button" class="qv btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <div style="display:inline-block;padding-left:5px;padding-right:3px;font-size:15px" class="qv glyphicon glyphicon-folder-open"></div>
+                    <div style="padding-left:5px;display:inline-block;width:220px;overflow:hidden;vertical-align:sub;text-overflow:ellipsis">{{curTemplateName}} </div>
+                    <span style="margin-top: 8px" class="qv caret big"></span>
+                </button>
+                <ul style="color:#6D6D6D;width:100%"  class="qv dropdown-menu " role="menu" >
+                    <li  class="qv" ng-repeat="template in templates" data-id="{{template.path}}" data-type="{{template.name}}" qva-activate="selectTemplate($event)">
+                        <span class="qv glyphicon glyphicon-file"></span>
+                        {{template.name}}
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+    </ul>
+	<section class=" configurator">
+			<div ng-show="appId" class="cnt cnt_objects">
+                <header>
+                    <h1 class="toolbox-tab-name" title="{{appName}}"></h1>
+                    <div>
+                        <qui-search-field query="query" placeholder="Search" on-escape="query = '';" />
+                    </div>
+                </header>
+                <div class="ws-button-panel qui-editbarflat qv-assets" style="height:30px;">
+					<button class="left" data-icon="subtoolbar-template"
+							ng-class="{ active: buttons.visualizations.active }" 
+							title="Visualizations" 
+							qva-activate="toggle( buttons.visualizations )"></button> 
+					<button class="right" data-icon="snapshot"
+							ng-class="{ active: buttons.snapshots.active }" 
+							title="Snapshots" 
+							qva-activate="toggle( buttons.snapshots )"></button> 
+				</div>
+				<div class="scrollable" q-scroll>
+					<ul class="qui-list" id="visualizations" ng_if="buttons.visualizations.active">
+                        <li ng-repeat="object in objects | filter:query track by $index"
+							class="qui-list-item library-item qv-draggable"
+							ng-class="{header: object.type === 'sheet', active: obj === object.id}" 
+							data-id="{{object.id}}"
+                            data-app="{{appId}}"
+                            data-type="{{object.type}}"
+                            ng-mouseenter="selectObject($event)"
+						title="{{object.title}}"> 
+							<div ng-if="object.icon" class="icon-{{object.icon}} qui-list-icon"></div>
+                            <div ng-if="object.qMeta!=undefined" class="qui-list-text ng-isolate-scope ng-binding" qve-highlight="" text="{{object.qMeta.title}}">{{object.qMeta.title}}</div>
+                            <div ng-if="object.qMeta==undefined" class="qui-list-text ng-isolate-scope ng-binding" qve-highlight="" text="{{object.title}}">{{object.title}}</div>
+						</li> 
+					</ul> 
+					<ul class="qui-icontextlist" id="visualizations" ng_if="buttons.snapshots.active"> 
+						<li ng-repeat="object in snapshots | filter:query "
+							class="qui-list-item library-item qv-draggable"
+							ng-class="{header: object.type === 'sheet', active: snapshot === object.id}" 
+							data-id="{{object.id}}" 
+							data-type="snapshot"
+                            data-app="{{appId}}"
+                            ng-mouseenter="selectObject($event)"
+							title="{{object.title}}"> 
+							<div ng-if="object.icon" class="icon-{{object.icon}} qui-list-icon"></div> 
+							<div class="snapshot-text"> 
+								<p>{{object.title}}</p> 
+								<p>{{formatDate(object.timestamp)}}</p> 
+							</div> 
+						</li> 
+					</ul> 
+				</div> 
+			</div> 
+		</section> 
+</div>
+<ng-include ng-if="curTemplate!='Select a Template'" class="qv" id="template" src="curTemplate" onload="ready()"></ng-include>

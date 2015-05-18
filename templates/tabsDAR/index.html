@@ -1,0 +1,46 @@
+
+<style>
+	html{
+		height:100%
+	}
+	article.qvobject
+	{
+		position:absolute;
+		overflow: hidden;
+		padding: 10px;
+	}
+	.qv > .well{
+		background-color:white;
+		margin-bottom:0px;
+		
+	}
+	div[class^='col-md-'],div[class*=' col-md-']{
+		padding-bottom:5px;
+	}
+	.height{
+		height:100%;
+	}
+	.half{
+		height:50%;
+	}
+	.nav,.container{
+		padding-top:10px;
+	}
+	.nav,.carousel{
+		margin-bottom:10px;
+	}	
+	.qv-panel-current-selections .item{
+		height:35px;
+	}
+</style>
+<div id="CurrentSelections" ng-show="selections" data-qvid="CurrentSelections" class="qvobject"></div>
+<div style="height:100%">
+    <ul class="nav nav-tabs qv" role="tablist">
+        <li class="qv" ng-click="changePage('dashboard')"  ng-class="{'active':curpage=='dashboard'}"><a href="javascript:void(0)">Dashboard</a></li>
+        <li class="qv" ng-click="changePage('analysis')" ng-class="{'active':curpage=='analysis'}"><a href="javascript:void(0)">Analysis</a></li>
+        <li class="qv" ng-click="changePage('report')"  ng-class="{'active':curpage=='report'}"><a href="javascript:void(0)">Report</a></li>
+    </ul>
+<ng-include src="'templates/tabsDAR/tab1.html'" onload='ready()'></ng-include>
+<ng-include src="'templates/tabsDAR/tab2.html'" onload='ready()'></ng-include>
+<ng-include src="'templates/tabsDAR/tab3.html'" onload='ready()'></ng-include>
+</div>
