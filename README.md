@@ -1,3 +1,5 @@
+Demo: https://www.youtube.com/watch?v=USFK1hh5DWY
+
 A Qlik Sense Mashups demo Extension for Qlik Sense Desktop and Qlik Sense Server
 
 TESTED ONLY ON CHROME, QLIK SENSE SERVER 1.1 AND ABOVE.
