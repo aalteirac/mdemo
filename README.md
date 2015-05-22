@@ -1,6 +1,4 @@
-Demo: https://www.youtube.com/watch?v=USFK1hh5DWY
-
-[![ScreenShot](https://i.ytimg.com/vi/USFK1hh5DWY/2.jpg?time=1432276283656)](https://www.youtube.com/watch?v=USFK1hh5DWY)
+Demo: [![ScreenShot](https://i.ytimg.com/vi/USFK1hh5DWY/2.jpg?time=1432276283656)](https://www.youtube.com/watch?v=USFK1hh5DWY)
 
 A Qlik Sense Mashups demo Extension for Qlik Sense Desktop and Qlik Sense Server
 
