@@ -4,7 +4,7 @@ A Qlik Sense Mashups demo Extension for Qlik Sense Desktop and Qlik Sense Server
 
 Demo here:
 
-[![ScreenShot](https://raw.githubusercontent.com/aalteirac/mdemo/2.0/thumb.png)](https://www.youtube.com/watch?v=USFK1hh5DWY)
+[![ScreenShot](https://raw.githubusercontent.com/aalteirac/mdemo/thumb.png)](https://www.youtube.com/watch?v=USFK1hh5DWY)
 
 TESTED ONLY WITH CHROME and FX. It could work on IE11, but I don't want to know ;-)
 
