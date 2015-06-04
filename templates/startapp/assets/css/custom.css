@@ -1,6 +1,10 @@
 /* -----------------------------------------
    Custom.css - put your own changes here 
 ----------------------------------------- */
-div.qv-selection-toolbar{
- display:none;
+div.sel-toolbar-card{
+
+}
+
+.nav.navbar-nav.pull-right.qv{
+    display: none!important;
 }

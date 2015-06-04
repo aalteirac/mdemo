@@ -2,10 +2,10 @@ $(document).ready(function() {
 	
 	// ["Label" , "website link" , "bar color" , "bar image"]
 	var social = [
-	 ["facebook", 	"http://fb.com", 			"#3B5998", "templates/rotating/img/facebook.png"],
-	 ["google+", 	"http://google.com", 		"#dd4b39", "templates/rotating/img/google_plus.png"],
-	 ["linkedin", 	"https://www.linkedin.com/","#0e76a8", "templates/rotating/img/linkedin.png"],
-	 ["twitter", 	"https://twitter.com/", 	"#55acee", "templates/rotating/img/twitter.png"]
+	 ["facebook", 	"http://fb.com", 			"#3B5998", "img/facebook.png"],
+	 ["google+", 	"http://google.com", 		"#dd4b39", "img/google_plus.png"],
+	 ["linkedin", 	"https://www.linkedin.com/","#0e76a8", "img/linkedin.png"],
+	 ["twitter", 	"https://twitter.com/", 	"#55acee", "img/twitter.png"]
 	 ];
 
 ////////////////////////////////////////////////	

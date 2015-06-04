@@ -126,7 +126,7 @@
  * These elements are ignored during DOM object deletion for ajax version 
  * It will delete all objects during page load with these exceptions:
  */
-	ignore_key_elms = ["#header, #left-panel, #right-panel, #main, div.page-footer, #shortcut, #divSmallBoxes, #divMiniIcons, #divbigBoxes, #voiceModal, script, .ui-chatbox"],
+	ignore_key_elms = ["#header, #left-panel,.selections-data-area-ui,div[qva-chart-tooltip], #right-panel, #main, div.page-footer, #shortcut, #divSmallBoxes, #divMiniIcons, #divbigBoxes, #voiceModal, script, .ui-chatbox"],
 /*
  * VOICE COMMAND CONFIG
  * dependency: js/speech/voicecommand.js

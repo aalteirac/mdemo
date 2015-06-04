@@ -47,12 +47,17 @@
   display: block;
   box-sizing: border-box;
 }
+div.qv-global-selections{
+    height:60%;
+    width: 70%;
+    left:15%;
+    top:20%;
+
+}
 #bdy .qv-panel-current-selections .active {
 	background:#1BA387;
 }
-#CurrentSelections .buttons-end{
-	display:none;
-}
+
 #CurrentSelections .buttons,#CurrentSelections .qv-subtoolbar-button.borderbox,#CurrentSelections .wrap.borderbox{
 	border-right:0px solid rgba(64, 63, 62, 0.4);
 	border-bottom:0px solid rgba(64, 63, 62, 0.4);
@@ -64,7 +69,7 @@
 	line-height:0.5;
 }
 #CurrentSelections .buttons-end{
-	display:none;
+	/*display:none;*/
 }
 #CurrentSelections{
 	margin-bottom:10px;
@@ -1318,7 +1323,7 @@ body.full-screen #header {
   position: absolute;
   z-index: 9999;
   left: 54px;
-  top: 33px;
+  top: 44px;
   width: auto;
   display: block;
   margin: 0;
@@ -1394,7 +1399,7 @@ body.full-screen #header {
   padding-top: 0;
   padding-left: 3px;
   color: #ffffff;
-  margin-top: 2px;
+  margin-top: -4px;
 }
 #sidebar .sidebar-inner .option-buttons {
   margin: 0 1px 0 0;
@@ -1465,7 +1470,6 @@ body.full-screen #header {
   position: relative;
   width: auto;
   height: 100%;
-  top:40px;
 }
 #sidebar .sidebar-inner ul#sideNav {
   padding: 0 15px;
@@ -1961,7 +1965,7 @@ body.full-screen #header {
 ----------------------------------------- */
 #content {
   margin-left: 255px;
-  padding: 52px 0 0 0;
+  padding: 0px 0 0 0;
   min-height: 100%;
 }
 #content.sidebar-page {
@@ -2019,6 +2023,7 @@ body.full-screen #header {
 #content .content-wrapper .content-inner {
   position: relative;
   padding: 5px 25px;
+    z-index: 1;
 }
 /*Template elements*/
 /* -----------------------------------------

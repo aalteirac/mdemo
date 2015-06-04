@@ -67,7 +67,7 @@ function goApp(el) {
         },
         sounds: {
             active: true, //activate sounds
-            dir: 'templates/startapp/assets/sounds/',//where sounds is located
+            dir: 'assets/sounds/',//where sounds is located
             volume: '1', //sound volume
             sounds: [ //sound list
                 'loading',

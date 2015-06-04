@@ -2,7 +2,7 @@
 // Control options and basic function of template
 // version 1.0, 28.02.2013
 // by SuggeElson www.suggeelson.com
-var tpid="dashboard.html";
+
 (function($) {
 
     // here we go!
@@ -101,7 +101,7 @@ var tpid="dashboard.html";
             backToTop: {
                 active: true, //activate back to top
                 scrolltime: 800, //scroll time speed
-                imgsrc: 'templates/startapp/assets/img/backtop.png', //image
+                imgsrc: 'assets/img/backtop.png', //image 
                 width: 48, //width of image
                 place: 'bottom-right', //position top-left, top-right, bottom-right, bottom-left
                 fadein: 500, //fadein speed
@@ -363,7 +363,7 @@ var tpid="dashboard.html";
                 } else {
                     store.set('sidebarToggle', 0);
                 }
-
+                qlik.resize();
             });
         }
 
@@ -1383,7 +1383,7 @@ this.bind("mousewheel",fn):this.trigger("mousewheel")},unmousewheel:function(fn)
                     thisPanelBody.slideToggle(200);
                     thisPanelFooter.slideToggle(200);
                     thisPanelHeading.toggleClass('min');
-
+					qlik.resize();
                 }
                 
                 //refresh
@@ -1437,6 +1437,7 @@ this.bind("mousewheel",fn):this.trigger("mousewheel")},unmousewheel:function(fn)
                     zIndex: 10000,
                     tolerance: "pointer",                           
                     update: function (event, ui) {
+						qlik.resize();
                         if (plugin.settings.panels.rememberSortablePosition) {
                             panelSavePosition(ui.item);
                         }                       
@@ -1496,7 +1497,7 @@ this.bind("mousewheel",fn):this.trigger("mousewheel")},unmousewheel:function(fn)
         return this.each(function() {
 
             // if plugin has not already been attached to the element
-
+            if (undefined == $(this).data('panelStart')) {
 
                 // create a new instance of the plugin
                 // pass the DOM element and the user-provided options as arguments
@@ -1507,6 +1508,7 @@ this.bind("mousewheel",fn):this.trigger("mousewheel")},unmousewheel:function(fn)
                 // element.data('appStart').settings.propertyName
                 $(this).data('panelStart', plugin);
 
+            }
 
         });
 

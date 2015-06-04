@@ -2372,7 +2372,7 @@
 .qv > input[type="datetime-local"],
 .qv > input[type="month"] {
   line-height: 42px;
-  line-height: 2 \0;
+  line-height: 2 ;
 }
 .qv > input[type="date"].input-sm,
 .qv > input[type="time"].input-sm,
@@ -4735,21 +4735,23 @@
   color: #b11e0e;
 }
 .qv > @-webkit-keyframes progress-bar-stripes {
-  from {
-    background-position: 40px 0;
-  }
+          from {
+              background-position: 40px 0;
+          }
+      }
 .qv > to {
     background-position: 0 0;
   }
- }
+
 .qv > @keyframes progress-bar-stripes {
-  from {
-    background-position: 40px 0;
-  }
+          from {
+              background-position: 40px 0;
+          }
+      }
 .qv > to {
     background-position: 0 0;
   }
- }
+
 .qv > .progress {
   overflow: hidden;
   margin-bottom: 28px;

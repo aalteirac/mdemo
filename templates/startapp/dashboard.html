@@ -1,10 +1,17 @@
-
+<div id="preloader2">
+	<div id="preloader-logo2">
+		<img src="assets/img/preloader-logo.png" alt="Logo">
+	</div>
+	<div id="preloader-icon2">
+		<i class="im-spinner icons-spin"></i>
+	</div>
+</div>
 <div id="page-heading" class="page-header">
-	<h2><i class="icon im-home2"></i> Dashboard</h2>
+	<h2 id="stapp8" class="editable"><i class="icon im-home2"></i> Dashboard</h2>
 	<!-- Start .bredcrumb -->
 	<ul id="crumb" class="breadcrumb">
-		<li><i class="im-home6"></i><a href="index.html">Home</a></li>
-		<li> Dashboard</li>
+		<li><i class="im-home6"></i>Home</li>
+		<li id="stapp9" class="editable"> Dashboard</li>
 	</ul>
 	<!-- End .breadcrumb -->
 </div>
@@ -17,20 +24,20 @@
 			<div class="panel panel-default plain toggle panelMove panelClose panelRefresh">
 				<!-- Start .panel -->
 				<div class="panel-heading">
-					<h4 class="panel-title">Revenue</h4>
+					<h4 id="stapp10" class="editable panel-title">Revenue</h4>
 				</div>
 				<div class="panel-body">
-				   <div id="QV01" style="height: 250px;" class="qvplaceholder qvtarget"></div>
+				   <div id="QV01" style="height: 250px;" class="qvplaceholder qvtarget" ></div>
 				</div>
 			</div>
 			<div class="panel panel-default plain toggle panelMove panelClose panelRefresh">
 					<!-- Start .panel -->
 					<div class="panel-heading">
-						<h4 class="panel-title">Expenses</h4>
+						<h4 id="stapp11" class="editable panel-title">Expenses</h4>
 					</div>
 					<div class="panel-body" style="line-height:1">
 						<div class="col-lg-6 col-md-6 sortable-layout">
-							<div id="QV02" style="height: 250px;" class="qvplaceholder qvtarget"></div>
+							<div id="QV02" style="height: 250px;" class="qvplaceholder qvtarget" ></div>
 						</div>
 						<div class="col-lg-6 col-md-6 sortable-layout">
 							<div id="QV03" style="height: 225px;" class="qvplaceholder qvtarget" ></div>
@@ -41,16 +48,16 @@
 		<div class="col-lg-2 col-md-3 sortable-layout">
 			<div class="panel panel-teal panelMove">
 				<div class="panel-heading">
-					<h4 class="panel-title">Filters</h4>
+					<h4 id="stapp12" class="editable panel-title">Filters</h4>
 				</div>
-				<div id="QV04" style="height: 267px;" class="qvplaceholder qvtarget" ></div>
+				<div id="QV04" style="height: 267px;" class="qvplaceholder qvtarget"></div>
 			</div>
 			<div class="panel panel-teal panelMove">
 				<!-- Start .panel -->
 				<div class="panel-heading">
-					<h4 class="panel-title"><i class="im-camera"></i> Instagram </h4>
+					<h4 id="stapp13" class="editable panel-title"><i class="im-camera"></i> Instagram </h4>
 					<div class="pull-right mt5">
-						<a href="#" class="color-white">@Qlik</a> 
+						<a id="stapp14" href="#" class="editable color-white">@Qlik</a>
 					</div>
 				</div>
 				<div class="panel-body p0">
@@ -86,13 +93,13 @@
 								</ol>
 								<div class="carousel-inner">
 									<figure class="item active">
-										<img class="img-responsive" src="templates/startapp/assets/img/instagram/instagram.jpg" alt="image">
+										<img class="img-responsive" src="assets/img/instagram/instagram.jpg" alt="image">
 									</figure>
 									<figure class="item">
-										<img class="img-responsive" src="templates/startapp/assets/img/instagram/instagram2.jpg" alt="image">
+										<img class="img-responsive" src="assets/img/instagram/instagram2.jpg" alt="image">
 									</figure>
 									<figure class="item">
-										<img class="img-responsive" src="templates/startapp/assets/img/instagram/instagram3.jpg" alt="image">
+										<img class="img-responsive" src="assets/img/instagram/instagram3.jpg" alt="image">
 									</figure>
 								</div>
 							</div>
@@ -127,3 +134,10 @@
 	</div>
 	<!-- End .row -->
 </div>
+<script>restoreObj();makeDroppy();
+$("#content").height($(window).height()-52);
+$( window ).resize(function() {
+    $("#content").height($(window).height()-52);
+});
+
+</script>

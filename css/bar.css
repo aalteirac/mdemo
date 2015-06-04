@@ -76,7 +76,6 @@ section.configurator div.cnt ul li.header.active {
 }
 section.configurator div.cnt ul div.snapshot-text {
     position: absolute;
-    padding-left: 6px;
     top: 0;
     white-space: nowrap;
     overflow: hidden;
