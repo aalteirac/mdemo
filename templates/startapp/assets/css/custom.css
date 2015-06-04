@@ -1,0 +1,10 @@
+/* -----------------------------------------
+   Custom.css - put your own changes here 
+----------------------------------------- */
+div.sel-toolbar-card{
+
+}
+
+.nav.navbar-nav.pull-right.qv{
+    display: none!important;
+}
