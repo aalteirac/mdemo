@@ -4,7 +4,7 @@ define("text!selectorBox.html", [], function() {
         '    <ul style="position:relative" class="qv sidebar-nav">' +
         '        <li class="qv sidebar-brand"><a>Start Mashup\'s !</a>' +
         '        </li>' +
-        '        <li><a style="padding-left:100px;margin-bottom: 80px"title="Clear Custom Text" href="javascript:void(0)" onclick="localStorage.clear();window.location = window.location">Clear All Text</a>'+
+        '        <li><a style="padding-left:100px;margin-bottom: 80px"title="Clear Custom Text" href="javascript:void(0)" onclick="localStorage.clear();window.location = window.location">Clear Saved Information</a>'+
         '        </li>'+
 //        '        <li><a style="margin-bottom: 40px;padding-left:100px;"title="Right-click on any object to switch Selections box..." href="javascript:void(0)" ng-click="toggleSel()">Toggle Selections</a>'+
 //        '        </li>'+
