@@ -229,7 +229,7 @@ require.config( {
                             var c = b.properties,
                                 h = util.getIcon(c.qInfo.qType);
                             g.icon = h ? g.icon = h : g.icon = "toolbar-help", c.title && c.title.trim && c.title.trim().length > 0 ? g.title = c.title : c.markdown && c.markdown.trim && c.markdown.trim().length > 0 ? f.getObject(g.id).then(function(b) {
-                                g.title = a("<div>" + e.toHTML(b.layout.markdown, b.layout) + "</div>").text()
+                                //g.title = a("<div>" + e.toHTML(b.layout.markdown, b.layout) + "</div>").text()
                             }) : "object" == typeof c.title ? f.getObject(g.id).then(function(a) {
                                 g.title = a.layout.title
                             }) : c.title ? g.title = "[no title]" : f.getObject(g.id).then(function(a) {
