@@ -270,7 +270,9 @@ require.config( {
                 scope.curTemplateName='Select a Template',
                 //list based on files
                 scope.templates = [
+					{name:' default', path:'templates/default/ifr.html'},
                     {name:' SmartBoard', path:'templates/admin/ifr.html'},
+					{name:' SNCF', path:'templates/SNCF/ifr.html'},
                     {name:' MashBoard', path:'templates/startapp/ifr.html'},
                     {name:' Elegant', path:'templates/unify/ifr.html'},
                     {name:' Mosaic', path:'templates/mosaic/ifr.html'},
