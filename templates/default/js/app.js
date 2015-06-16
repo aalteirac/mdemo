@@ -1,11 +1,39 @@
 var app_cached_providers = {};
 
+var rootPath=window.location.hostname;
+var portUrl="80";
+if(window.location.port==""){
+    if("https:" == window.location.protocol)
+        portUrl="443";
+    else{
+        portUrl="80";
+    }
+}
+else
+    portUrl=window.location.port;
+
+var pathRoot="//localhost:4848/extensions/";
+if(portUrl!="4848")
+    pathRoot="//"+rootPath+":"+portUrl+"/resources/";
+
+var config = {
+    host: window.location.hostname,
+    prefix: "/",
+    port: window.location.port,
+    isSecure: "https:" === window.location.protocol
+};
+
+function getURLParameter(a) {
+    return (RegExp(a + "=(.+?)(&|$)").exec(location.search) || [null, null])[1]
+}
+
 define([
 	'js/qlik',
 	'angular',
 	'angularRoute',
 	'angularBootstrap',
 	'angularUiSortable',
+	'angularUiTree',
 	'angularCssInjector',
 	'angularLadda'
 ], function(qlik, angular) {
@@ -14,6 +42,7 @@ define([
 		'ngRoute',
 		'ui.bootstrap',
 		'ui.sortable',
+		'ui.tree',
 		'angular.css.injector',
 		'angular-ladda'
 	]);

@@ -1,9 +1,75 @@
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavCtrl">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="#" class="navbar-brand">{{ navbar.brand }}</a>
+		</div>
+
+		<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+			<ul class="nav navbar-nav">
+				<li ng-repeat-start="navItem in navbar.left" ng-if="false"></li>
+				
+				<li ng-if="navItem.type == 'link'">
+					<a href="#">{{ navItem.title }}</a>
+				</li>
+				
+				<li ng-if="navItem.type == 'dropdown'" class="dropdown" dropdown>	
+					<a href="#" class="dropdown-toggle " dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">{{ navItem.title }} <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li ng-repeat="navSubItem in navItem.items" ng-class="{'divider': navSubItem.type == 'sep'}">
+							<a href="#" ng-if="navSubItem.type == 'link'">{{navSubItem.title}}</a>
+						</li>
+					</ul>
+				</li>
+				
+				<li ng-repeat-end ng-if="false"></li>
+			</ul>
+
+
+			<ul class="nav navbar-nav navbar-right" >
+				<li style="padding-right: 15px;">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default navbar-btn" ng-click="switchEdit()" ng-class="{'btn-warning': state.edit}"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+						<button ng-if="state.modified" type="button" class="btn btn-success navbar-btn" ng-click="save()">Save</button>
+						<button ng-if="state.edit" type="button" class="btn btn-default navbar-btn" ng-click="configPage()"><span class="glyphicon glyphicon-wrench"></span> Page</button>
+					</div>
+				</li>
+				<li style="padding-right: 15px;">
+					<div class="btn-group">
+						<button ng-if="state.edit && state.multiselect" type="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-plus-sign"></span></button>
+						<button ng-if="state.edit && state.multiselect" type="button" class="btn btn-default navbar-btn" ng-click="clearPanels()"><span class="glyphicon glyphicon-minus-sign"></span> Clear</button>
+						<button ng-if="state.edit && state.multiselect" type="button" class="btn btn-default navbar-btn" ng-click="configPanels()"><span class="glyphicon glyphicon-cog"></span> Configure</button>
+						<button ng-if="state.edit && state.multiselect" type="button" class="btn btn-default navbar-btn" ng-click="removePanels()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div ng-if="header.show" style="margin-top: 50px;"></div>
+<div ng-if="!header.show" style="margin-top: 70px;"></div>
+
+<div class="jumbotron" ng-if="header.show">
+	<div class="container">
+		<h1>{{header.title}}</h1>
+		<p>{{header.description}}</p>
+		
+		<p><a class="btn btn-primary btn-lg" ng-click="open()" role="button">Learn more &gt;&gt;</a></p>
+	</div>
+</div>
+
 <div class="container marketing">
 
 	<div class="row sortable" ui-sortable="sortableOptions" ng-model="row" ng-repeat="row in rows">
 		<div class="col-lg-{{item.width}}" ng-repeat="item in row">
 			<div class="panel panel-{{item.color}}" >
-				<div class="panel-heading">
+				<div class="panel-heading" ng-if="item.showTitle || state.edit">
 					<div class="container-fluid panel-container" style="padding-left:0px; padding-right:0px;">
 						<ul class="list-inline">
 							<li class="col-xs-12">
@@ -43,3 +109,5 @@
 	</footer>
 
 </div>
+
+<div id="CurrentSelections" style="position:fixed;bottom:0px;width:100%" data-qvid="CurrentSelections" class="qvobject"></div>

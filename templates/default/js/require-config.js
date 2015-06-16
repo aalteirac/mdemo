@@ -17,6 +17,7 @@ require.config({
 		angularLadda:			extBowerRoot + '/angular-ladda/dist/angular-ladda',
 		angularXEditable:		extBowerRoot + '/angular-xeditable/dist/js/xeditable',
 		angularUiSortable:		extBowerRoot + '/angular-ui-sortable/sortable',
+		angularUiTree:			extBowerRoot + '/angular-ui-tree/angular-ui-tree.min',
 		angularBootstrap:		extBowerRoot + '/angular-ui-bootstrap-bower/ui-bootstrap-tpls-0.12.0',
 		jqueryUI: 				extBowerRoot + '/jquery-ui/jquery-ui.min',
 		jquerySortable: 		extBowerRoot + '/jquery-sortable/jquery.sortable',
@@ -45,6 +46,10 @@ require.config({
 		'angularUiSortable': {
 			deps: ['angular'],
             exports: 'angularUiSortable'
+        },
+		'angularUiTree': {
+			deps: ['angular'],
+            exports: 'angularUiTree'
         },
 		'angularBootstrap' : {
 			deps: ['angular'],

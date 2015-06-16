@@ -7,74 +7,16 @@
     <link type="text/css" rel="stylesheet" href="../../css/bar.css">
     <link type="text/css" rel="stylesheet" href="../../css/bootScoped.css">
 	
-	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<link href="css/default/bootstrap.min.css" rel="stylesheet">
+	<!--<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">-->
 	<!--<link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">-->
 	
 </head>
 <body id="main" style="position: static;">
-
-	<nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavCtrl">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a href="#" class="navbar-brand">{{ navbar.brand }}</a>
-			</div>
-
-			<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
-				<ul class="nav navbar-nav">
-					<li ng-repeat-start="navItem in navbar.left" ng-if="false"></li>
-					
-					<li ng-if="navItem.type == 'link'">
-						<a href="#">{{ navItem.title }}</a>
-					</li>
-					
-					<li ng-if="navItem.type == 'dropdown'" class="dropdown" dropdown>	
-						<a href="#" class="dropdown-toggle " dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">{{ navItem.title }} <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li ng-repeat="navSubItem in navItem.items" ng-class="{'divider': navSubItem.type == 'sep'}">
-								<a href="#" ng-if="navSubItem.type == 'link'">{{navSubItem.title}}</a>
-							</li>
-						</ul>
-					</li>
-					
-					<li ng-repeat-end ng-if="false"></li>
-				</ul>
-
-
-				<ul class="nav navbar-nav navbar-right" style="padding-right: 15px;">
-					<li>
-						<div class="btn-group">
-							<button type="button" class="btn btn-default navbar-btn" ng-click="switchEdit()" ng-class="{'btn-warning': state.edit}"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
-							<button ng-if="state.edit && state.multiselect" type="button" class="btn btn-default navbar-btn" ng-click="clearPanels()"><span class="glyphicon glyphicon-minus-sign"></span> Clear</button>
-							<button ng-if="state.edit && state.multiselect" type="button" class="btn btn-default navbar-btn" ng-click="configPanels()"><span class="glyphicon glyphicon-cog"></span> Configure</button>
-							<button ng-if="state.edit && state.multiselect" type="button" class="btn btn-default navbar-btn" ng-click="removePanels()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-							<button ng-if="state.modified" type="button" class="btn btn-success navbar-btn" ng-click="save()">Save</button>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-	<div class="jumbotron" ng-controller="DefaultCtrl">
-		<div class="container">
-			<h1>{{title}}</h1>
-			<p>{{description}}</p>
-			
-			<p><a class="btn btn-primary btn-lg" ng-click="open()" role="button">Learn more &gt;&gt;</a></p>
-		</div>
-	</div>
 	
 	<div ng-view>
 	</div>
-	
-	<div id="CurrentSelections" style="position:fixed;bottom:0px;width:100%" data-qvid="CurrentSelections" class="qvobject"></div>
-	
+
 	<script src="/resources/assets/external/requirejs/require.js"></script>
 	<script src="js/require-config.js"></script>
 </body>
