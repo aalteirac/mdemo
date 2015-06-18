@@ -133,7 +133,7 @@ define([
 					
 						if (scope.qvPlaceholder.type != "snapshot") {
 							qlik.openApp(scope.qvPlaceholder.app).getObject(elem, scope.qvPlaceholder.object).then(function (o) {
-								scope.qvPlaceholder.objectRef = o;
+								//scope.qvPlaceholder.objectRef = o;
 							});
 							
 							qlik.openApp(scope.qvPlaceholder.app).getObject($('#CurrentSelections'), 'CurrentSelections');
