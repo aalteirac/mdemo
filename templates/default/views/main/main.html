@@ -7,12 +7,12 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="#/mashups" class="navbar-brand">{{ navbar.brand }}</a>
+			<a href="#/mashups" class="navbar-brand">{{ mashup.navbar.brand }}</a>
 		</div>
 
 		<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
 			<ul class="nav navbar-nav">
-				<li ng-repeat-start="navItem in navbar.left" ng-if="false"></li>
+				<li ng-repeat-start="navItem in mashup.navbar.left" ng-if="false"></li>
 				
 				<li ng-if="navItem.items.length == 0">
 					<a href="#/{{state.route.mashupId}}/{{ navItem.page }}">{{ navItem.title }}</a>
@@ -35,7 +35,7 @@
 				<li style="padding-right: 15px;">
 					<div class="btn-group">
 						<button type="button" class="btn btn-default navbar-btn" ng-click="switchEdit()" ng-class="{'btn-warning': state.edit}"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
-						<button ng-if="state.modified" type="button" class="btn btn-success navbar-btn" ng-click="save()">Save</button>
+						<button ng-if="state.modified" type="button" class="btn btn-success navbar-btn" ng-click="save()"><span class="glyphicon glyphicon-save"></span> Save</button>
 						<button ng-if="state.edit" type="button" class="btn btn-default navbar-btn" ng-click="configPage()"><span class="glyphicon glyphicon-wrench"></span> Page</button>
 					</div>
 				</li>
@@ -52,13 +52,15 @@
 	</div>
 </nav>
 
-<div ng-if="header.show" style="margin-top: 50px;"></div>
-<div ng-if="!header.show" style="margin-top: 70px;"></div>
+<div ng-if="config.header.show" style="margin-top: 50px;"></div>
+<div ng-if="!config.header.show" style="margin-top: 70px;"></div>
 
-<div class="jumbotron" ng-if="header.show">
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{ alert.msg }}</alert>
+
+<div class="jumbotron" ng-if="config.header.show">
 	<div class="container">
-		<h1>{{header.title}}</h1>
-		<p>{{header.description}}</p>
+		<h1>{{config.header.title}}</h1>
+		<p>{{config.header.description}}</p>
 		
 		<p><a class="btn btn-primary btn-lg" ng-click="open()" role="button">Learn more &gt;&gt;</a></p>
 	</div>
@@ -66,7 +68,7 @@
 
 <div class="container marketing">
 
-	<div class="row sortable" ui-sortable="sortableOptions" ng-model="row" ng-repeat="row in rows">
+	<div class="row sortable" ui-sortable="sortableOptions" ng-model="row" ng-repeat="row in config.rows">
 		<div class="col-lg-{{item.width}}" ng-repeat="item in row">
 			<div class="panel panel-{{item.color}}" >
 				<div class="panel-heading" ng-if="item.showTitle || state.edit">

@@ -8,7 +8,7 @@ define([
 	'extView/mashups/mashupsCtrl'
 ], function(qlik, $, app) {
 
-	app.service('dataService', ['$route', '$routeParams', function($route, $routeParams) {
+	app.service('dataService', ['$route', '$routeParams', 'Notification', function($route, $routeParams, Notification) {
 		
 		var state = {
 			edit: false,
@@ -39,50 +39,67 @@ define([
 				'yeti'
 			]
 		}
+			
+		Notification.info('<span class="glyphicon glyphicon-info-sign"></span> Using local repo!');
 		
-		var navBar = {
-			brand: 'Qlik',
-			left: [
-				{ id: 1, type: 'link', title: 'Default', page: '1', items: [] }
-			],
-			theme: 'default'
+		var store = null;
+		try {
+			store = JSON.parse(localStorage.getItem('mdemo#default#store'))
+		} catch(e) {
+			localStorage.removeItem('mdemo#default#store')
 		}
-		
-        var store = {
-			mashups: {
-				'default': {
-					name: "Default Mashup",
-					title: 'default',
-					color: 'default',
-					navbar: navBar,
-					pages: {
-						'1': {
-							navbar: navBar,
-							header: {
-								show: true,
-								title: 'Default',
-								description: 'Welcome to the default mashup!'
-							},
-							rows: [
-								[
-
-								]
+	
+		if(store == null) {
+			Notification.info('<span class="glyphicon glyphicon-info-sign"></span> Creating local repo!');
+			
+			var newStore = {
+				mashups: {
+					'default': {
+						name: "Default Mashup",
+						title: 'default',
+						color: 'default',
+						theme: 'default',
+						navbar: {
+							brand: 'Qlik',
+							left: [
+								{ id: 1, type: 'link', title: 'Default', page: '1', items: [] }
 							]
+						},
+						pages: {
+							'1': {
+								header: {
+									show: true,
+									title: 'Default',
+									description: 'Welcome to the default mashup!'
+								},
+								rows: [
+									[
+
+									]
+								]
+							}
 						}
 					}
 				}
-			}
-		};
+			};
+			
+			localStorage.setItem('mdemo#default#store', JSON.stringify(newStore));
+			
+			store = newStore;
 		
-		qlik.getAppList(function(b) {
-			b.forEach(function(a) {
-				cache.apps.push({
-					id: a.qDocId,
-					type: a.qDocName
-				})
-			})
-		});
+		}
+
+		var getStore = function() {
+			return store;
+		}
 		
+		var setStore = function() {
+			state.modified = false;
+			
+			localStorage.setItem('mdemo#default#store', JSON.stringify(store));
+			
+			Notification.success('<span class="glyphicon glyphicon-ok-sign"></span> Saved successfully!');
+		}
 		
 		var getMashup = function() {
 			
@@ -113,7 +130,6 @@ define([
 
 			if(typeof mashup.pages[$routeParams.pageId] === 'undefined') {
 				mashup.pages[$routeParams.pageId] = {
-					navbar: mashup.navbar,
 					header: {
 						show: true,
 						title: 'Page ' + $routeParams.pageId,
@@ -130,7 +146,7 @@ define([
 			return mashup.pages[$routeParams.pageId];
 		}
 		
-		var getStore = function() {
+		var getConfig = function() {
 			if($route.current.$$route.originalPath == '/mashups')
 				return store;
 			
@@ -172,6 +188,8 @@ define([
 					return item.selected;
 				})
 			}
+			
+			Notification.success('<span class="glyphicon glyphicon-ok-sign"></span> Panel removed successfully!');
 		}
 		
 		var self = {
@@ -182,22 +200,30 @@ define([
 			getCache: function () {
                 return cache;
             },
-			getStore: function () {
-                return getStore();
-            },
-			getMashup: function () {
-                return getMashup();
-            },
+			
+			getStore: getStore,
+			setStore: setStore,
+			getMashup: getMashup,
+			getConfig: getConfig,
             
 			resetSelected: resetSelected,
 			recalcMultiselect: recalcMultiselect,
+			
 			add: add,
 			remove: remove
         };
 		
+		qlik.getAppList(function(b) {
+			b.forEach(function(a) {
+				cache.apps.push({
+					id: a.qDocId,
+					type: a.qDocName
+				})
+			})
+		});
+		
 		return self;
-		
-		
+
 	}]);
 	
 	app.service('modalService',  ['$modal', 'dataService', function ($modal, dataService) {
@@ -210,15 +236,9 @@ define([
 				controller: 'views/MainModalConfigPanelCtrl',
 				size: 'lg',
 				resolve: {
-					panelConfig: function () {
+					rows: function () {
 						return rows;
 					}
-				}
-			});
-
-			modalInstance.result.then(function (result) {
-				if(result) {
-					qlik.resize();
 				}
 			});
 			
@@ -230,17 +250,7 @@ define([
 				animation: true,
 				templateUrl: 'views/main/main.modal.configPage.html',
 				controller: 'views/MainModalConfigPageCtrl',
-				size: 'lg',
-				resolve: {
-					pageConfig: function () {
-						return $.extend(
-							{},
-							dataService.getCache(),
-							dataService.getStore(),
-							{ mashup: dataService.getMashup() }
-						);
-					}
-				}
+				size: 'lg'
 			});
 			
 		}
@@ -250,13 +260,14 @@ define([
 			var modalInstance = $modal.open({
 				animation: true,
 				templateUrl: 'views/main/main.modal.deletePanel.html',
-				controller: 'views/MainModalDeletePanelCtrl'
-			});
-
-			modalInstance.result.then(function (result) {
-				if(result) {
-					dataService.remove(selected, index);
-					qlik.resize();
+				controller: 'views/MainModalDeletePanelCtrl',
+				resolve: {
+					selected: function () {
+						return selected;
+					},
+					index: function() {
+						return index;
+					}
 				}
 			});
 			
@@ -280,14 +291,22 @@ define([
 			dataService.resetSelected();
 		}
 		
+		var modified = function() {
+			state.modified = true;
+		}
+		
+		var save = function() {
+			dataService.setStore();
+		}
+		
 		var configPanel = function(index) {
-			var store = dataService.getStore();
-			modalService.config([ store.rows[0][index] ]);
+			var config = dataService.getConfig();
+			modalService.config([ config.rows[0][index] ]);
 		}
 		
 		var configPanels = function() {
-			var store = dataService.getStore();
-			modalService.config(store.rows[0].filter(function(item) {
+			var config = dataService.getConfig();
+			modalService.config(config.rows[0].filter(function(item) {
 				return item.selected;
 			}));
 		}
@@ -305,13 +324,15 @@ define([
 		}
 		
 		var selectPanel = function(index) {
-			var store = dataService.getStore();
-			store.rows[0][index].selected = !store.rows[0][index].selected;
+			var config = dataService.getConfig();
+			config.rows[0][index].selected = !config.rows[0][index].selected;
 			dataService.recalcMultiselect();
 		}
 
         var self = {
             switchEdit: switchEdit,
+			modified: modified,
+			save: save,
 			resetSelected: dataService.resetSelected,
 			
 			addPanel: dataService.add,

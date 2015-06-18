@@ -19,6 +19,7 @@ require.config({
 		angularUiSortable:		extBowerRoot + '/angular-ui-sortable/sortable',
 		angularUiTree:			extBowerRoot + '/angular-ui-tree/angular-ui-tree.min',
 		angularBootstrap:		extBowerRoot + '/angular-ui-bootstrap-bower/ui-bootstrap-tpls-0.12.0',
+		angularUiNotification:	extBowerRoot + '/angular-ui-notification/angular-ui-notification.min',
 		jqueryUI: 				extBowerRoot + '/jquery-ui/jquery-ui.min',
 		jquerySortable: 		extBowerRoot + '/jquery-sortable/jquery.sortable',
 		ladda:					extBowerRoot + '/ladda/dist/ladda.min',
@@ -51,9 +52,13 @@ require.config({
 			deps: ['angular'],
             exports: 'angularUiTree'
         },
-		'angularBootstrap' : {
+		'angularBootstrap': {
 			deps: ['angular'],
             exports: 'angularBootstrap'
+		},
+		'angularUiNotification': {
+			deps: ['angular'],
+            exports: 'angularUiNotification'
 		},
 		'jqueryUI': {
 			deps: ['jquery'],

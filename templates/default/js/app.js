@@ -34,6 +34,7 @@ define([
 	'angularBootstrap',
 	'angularUiSortable',
 	'angularUiTree',
+	'angularUiNotification',
 	'angularCssInjector',
 	'angularLadda'
 ], function(qlik, angular) {
@@ -44,9 +45,26 @@ define([
 		'ui.bootstrap',
 		'ui.sortable',
 		'ui.tree',
+		'ui-notification',
 		'angular.css.injector',
 		'angular-ladda'
 	]);
+	
+	app.controller('DefaultCtrl', function ($scope) {
+		
+	});
+	
+	app.config(function(NotificationProvider) {
+        NotificationProvider.setOptions({
+            delay: 10000,
+            startTop: 60,
+            startRight: 10,
+            verticalSpacing: 20,
+            horizontalSpacing: 20,
+            positionX: 'right',
+            positionY: 'top'
+        });
+    });
 	
 	var views = {
 		/* main: { template: 'views/main/main.html', ctrl: 'views/MainCtrl', ctrlFile: 'extView/main/mainCtrl'  } */

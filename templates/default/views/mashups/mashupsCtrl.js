@@ -8,35 +8,24 @@ define([
 	app.controller('views/MashupsCtrl', function ($scope, $modal, dataService, cssInjector) {
 		
 		cssInjector.removeAll();
-		cssInjector.add("css/slate/bootstrap.min.css");
+		cssInjector.add("css/yeti/bootstrap.min.css");
 		
 		$scope.store = dataService.getStore();
-		
-		
+
 		$scope.addMashup = function() {
 			
 			var modalInstance = $modal.open({
 				animation: true,
 				templateUrl: 'views/mashups/mashups.modal.new.html',
 				controller: 'views/MashupsModalNewCtrl',
-				size: 'lg',
-				resolve: {
-					mashups: function () {
-						return $scope.store.mashups;
-					}
-				}
+				size: 'lg'
 			});
-
-			modalInstance.result.then(function (result) {
-
-			});
-			
 		}
-		
 	});
 	
-	app.controller('views/MashupsModalNewCtrl', function ($scope, $modalInstance, mashups, dataService) {
+	app.controller('views/MashupsModalNewCtrl', function ($scope, $modalInstance, dataService) {
 		
+		$scope.store = dataService.getStore();
 		$scope.cache = dataService.getCache();
 		
 		var navBar = {
@@ -55,7 +44,6 @@ define([
 			navbar: navBar,
 			pages: {
 				'1': {
-					navbar: navBar,
 					header: {
 						show: true,
 						title: 'Default',
@@ -74,7 +62,7 @@ define([
 
 		$scope.ok = function () {
 
-			mashups[$scope.mashup.title] = $scope.mashup;
+			$scope.store.mashups[$scope.mashup.title] = $scope.mashup;
 			
 			$modalInstance.close(true);
 		};

@@ -13,53 +13,45 @@ define([
 	'jquery',
 	'utils'
 ], function (qlik, app, $, util) {
-
-	
-	//app_cached_providers
-	//.$controllerProvider
 	
 	app.controller('NavCtrl', function ($scope, dataService, selfService) {
 		
+		$scope.state = dataService.getState();
+		$scope.config = dataService.getConfig();
+		
 		$scope.switchEdit = selfService.switchEdit;
+		$scope.save = selfService.save;
 		$scope.configPage = selfService.configPage;
 		
 		$scope.clearPanels = selfService.resetSelected;
 		$scope.configPanels = selfService.configPanels;
 		$scope.removePanels = selfService.removePanels;
-	
-		$scope.state = dataService.getState();
-		$scope.store = dataService.getStore();
-		
-		$scope.navbar = $scope.store.navbar;
-		
-
 		
 	});
 
 	app.controller('views/MainCtrl', function ($scope, $modal, dataService, selfService, cssInjector) {
 
-		$scope.open = function() {
-			$window.location.href = 'http://branch.qlik.com/projects/showthread.php?529-Mashup-Builder-for-Demo';
-		}
-
 		$scope.state = dataService.getState();
-		$scope.store = dataService.getStore();
-		
-		$scope.$watch(function(){
-			return dataService.getStore();
-		}, function (newValue, oldValue) {
-			if(oldValue != newValue) $scope.state.modified = true;
-		}, true);
-		
-		$scope.header = $scope.store.header;
-		$scope.rows = $scope.store.rows;
+		$scope.config = dataService.getConfig();
+		$scope.mashup = dataService.getMashup();
 		
 		cssInjector.removeAll();
-		cssInjector.add("css/" + $scope.store.navbar.theme + "/bootstrap.min.css");
+		cssInjector.add("css/" + $scope.mashup.theme + "/bootstrap.min.css");
 
 		$scope.sortableOptions = {
 			handle: '.dragHandle',
 			'ui-floating': true
+		}
+		
+		$scope.$watch(function(){
+			return dataService.getStore();
+		}, function (newValue, oldValue) {
+			if(oldValue != newValue)
+				selfService.modified();
+		}, true);
+		
+		$scope.open = function() {
+			$window.location.href = 'http://branch.qlik.com/projects/showthread.php?529-Mashup-Builder-for-Demo';
 		}
 		
 		$scope.addPanel = function() {
@@ -79,16 +71,16 @@ define([
 		$scope.deletePanel = selfService.removePanel;
 	});
 	
-	app.controller('views/MainModalConfigPanelCtrl', function ($scope, $modalInstance, panelConfig, dataService, selfService, $q, cssInjector) {
+	app.controller('views/MainModalConfigPanelCtrl', function ($scope, $modalInstance, $q, cssInjector, dataService, selfService, rows) {
 
 		cssInjector.add("bower_components/ladda/dist/ladda-themeless.min.css");
 		
-		$scope.config = $.extend(true, {}, panelConfig[0]);
+		$scope.config = $.extend(true, {}, rows[0]);
 		
 		$scope.state = dataService.getState();
 		$scope.cache = dataService.getCache();
 		
-		$scope.multiple = panelConfig.length > 1;
+		$scope.multiple = rows.length > 1;
 
 		$scope.appChanged = function(selectedApp) {
 			
@@ -191,8 +183,7 @@ define([
 			$q.all([masterObjectDef.promise, sheetDef.promise]).then(function() {
 				$scope.appLoading = false;
 			})
-			
-			
+
 		}
 		
 		$scope.setObject = function(item) {
@@ -205,12 +196,12 @@ define([
 			
 			if(!$scope.multiple) {
 
-				$.extend(true, panelConfig[0], $scope.config);
+				$.extend(true, rows[0], $scope.config);
 				$modalInstance.close(true);
 				
 			} else {
 				
-				panelConfig.forEach(function(item) {
+				rows.forEach(function(item) {
 					item.showTitle = $scope.config.showTitle;
 					item.color = $scope.config.color;
 					item.width = $scope.config.width;
@@ -228,9 +219,12 @@ define([
 		
 	});
 	
-	app.controller('views/MainModalDeletePanelCtrl', function ($scope, $modalInstance) {
+	app.controller('views/MainModalDeletePanelCtrl', function ($scope, $modalInstance, dataService, selected, index) {
 
 		$scope.ok = function () {
+
+			dataService.remove(selected, index);
+			
 			$modalInstance.close(true);
 		};
 
@@ -240,17 +234,16 @@ define([
 		
 	});
 	
-	app.controller('views/MainModalConfigPageCtrl', function ($scope, $modalInstance, pageConfig, cssInjector) {
+	app.controller('views/MainModalConfigPageCtrl', function ($scope, $modalInstance, cssInjector, dataService) {
 		
 		cssInjector.add("bower_components/angular-ui-tree/angular-ui-tree.min.css");
 		
-		$scope.mashup = $.extend(true, {}, pageConfig.mashup);
-		$scope.themes = pageConfig.themes;
-		$scope.navbar = $.extend(true, {}, pageConfig.navbar);
-		$scope.header = $.extend(true, {}, pageConfig.header);
+		$scope.cache = dataService.getCache();
+		$scope.state = dataService.getState();
 		
-		$scope.theme = $scope.navbar.theme;
-		
+		$scope.config = $.extend(true, {}, dataService.getConfig());
+		$scope.mashup = $.extend(true, {}, dataService.getMashup());
+
 		$scope.firstOpen = true;
 		
 		$scope.remove = function(scope) {
@@ -262,10 +255,10 @@ define([
 		};
 		
 		$scope.addPage = function() {
-			$scope.navbar.left.push({
-		        id: $scope.navbar.left.length,
-		        title: 'Page ' + ($scope.navbar.left.length + 1),
-				page: ($scope.navbar.left.length + 1),
+			$scope.mashup.navbar.left.push({
+		        id: $scope.mashup.navbar.left.length,
+		        title: 'Page ' + ($scope.mashup.navbar.left.length + 1),
+				page: ($scope.mashup.navbar.left.length + 1),
 				type: 'link',
 		        items: []
 		    })
@@ -298,19 +291,15 @@ define([
 
 		$scope.ok = function () {
 			
-			if($scope.navbar.theme != pageConfig.navbar.theme) {
-				cssInjector.add("css/" + $scope.navbar.theme + "/bootstrap.min.css");
-				cssInjector.remove("css/" + pageConfig.navbar.theme + "/bootstrap.min.css");
+			if($scope.mashup.theme != dataService.getMashup().theme) {
+				cssInjector.add("css/" + $scope.mashup.theme + "/bootstrap.min.css");
+				cssInjector.remove("css/" + dataService.getMashup().theme + "/bootstrap.min.css");
 			}
 			
-			pageConfig.mashup.color = $scope.mashup.color;
-			pageConfig.mashup.name = $scope.mashup.name;
-
-			pageConfig.navbar.theme = $scope.navbar.theme;
-			pageConfig.navbar.brand = $scope.navbar.brand;
-			pageConfig.navbar.left = $scope.navbar.left;
+			$.extend(true, dataService.getMashup(), $scope.mashup);
+			dataService.getMashup().navbar = $scope.mashup.navbar;
 			
-			$.extend(true, pageConfig.header, $scope.header);
+			$.extend(true, dataService.getConfig(), $scope.config);
 			
 			$modalInstance.close(true);
 		};
