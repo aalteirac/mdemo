@@ -61,7 +61,7 @@
 		<div ng-if="!multiple" class="form-group">
 			<label class="col-sm-2 control-label">Application</label>
 			<div class="col-sm-10">
-				<select class="form-control" ng-change="appChanged(selectedApp)" ng-model="selectedApp" ng-options="app.type for app in state.apps"></select>
+				<select class="form-control" ng-change="appChanged(selectedApp)" ng-model="selectedApp" ng-options="app.type for app in cache.apps"></select>
 			</div>
 		</div>
 		

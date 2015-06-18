@@ -1,0 +1,50 @@
+<div class="modal-header">
+	<h3 class="modal-title">Config page!</h3>
+</div>
+<div class="modal-body">
+	
+
+	<accordion close-others="true">
+		<accordion-group heading="Mashup" is-open="firstOpen">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Name</label>
+					<div class="col-sm-10">
+						<input ng-model="mashup.name" type="text" class="form-control" placeholder="Name">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Id</label>
+					<div class="col-sm-10">
+						<input ng-model="mashup.title" type="text" class="form-control" placeholder="Title">
+					</div>
+				</div>
+				<div class="form-group">
+				<label class="col-sm-2 control-label">Color</label>
+				<div class="col-sm-10">
+					<div class="btn-group" style="width: 100%;">
+						<button type="button" class="btn btn-default col-sm-2" ng-click="mashup.color = 'default'">Default<span ng-if="mashup.color == 'default'" class="glyphicon glyphicon-ok"></span></button>
+						<button type="button" class="btn btn-primary col-sm-2" ng-click="mashup.color = 'primary'">Primary<span ng-if="mashup.color == 'primary'" class="glyphicon glyphicon-ok"></span></button>
+						<button type="button" class="btn btn-success col-sm-2" ng-click="mashup.color = 'success'">Success<span ng-if="mashup.color == 'success'" class="glyphicon glyphicon-ok"></span></button>
+						<button type="button" class="btn btn-info col-sm-2" ng-click="mashup.color = 'info'">Info<span ng-if="mashup.color == 'info'" class="glyphicon glyphicon-ok"></span></button>
+						<button type="button" class="btn btn-warning col-sm-2" ng-click="mashup.color = 'warning'">Warning<span ng-if="mashup.color == 'warning'" class="glyphicon glyphicon-ok"></span></button>
+						<button type="button" class="btn btn-danger col-sm-2" ng-click="mashup.color = 'danger'">Danger<span ng-if="mashup.color == 'danger'" class="glyphicon glyphicon-ok"></span></button>
+					</div>
+				</div>
+			</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Theme</label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="mashup.theme" ng-options="theme for theme in cache.themes"></select>
+					</div>
+				</div>
+			</form>
+		</accordion-group>
+
+	</accordion>
+
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="ok()">OK</button>
+	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

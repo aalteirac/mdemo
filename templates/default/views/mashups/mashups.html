@@ -1,0 +1,39 @@
+<div class="jumbotron">
+	<div class="container">
+		<h1>Mashup Editor</h1>
+		<p>This is a mashup template that works with Anthony Alteirac MDemo's mashup and that combines AngularJS, RequireJS and Bootstrap! Enjoy ;)</p>
+		
+		<p><a class="btn btn-primary btn-lg" ng-click="open()" role="button">Learn more &gt;&gt;</a></p>
+	</div>
+</div>
+
+<div class="container marketing">
+
+	<div class="row">
+		<div class="col-lg-3" ng-repeat="mashup in store.mashups">
+			<div class="panel panel-default">
+				<div class="panel-body bg-{{mashup.color}}" style="width: 100%; height: 200px;">
+					<a href="#/{{mashup.title}}/1">
+						<h2 class="bg-{{mashup.color}}">{{mashup.name}}</h2>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="panel panel-default">
+				<div class="panel-body bg-default" style="width: 100%; height: 200px;">
+					<button type="button" class="btn btn-default btn-lg" ng-click="addMashup()">
+						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> New mashup!
+					</button>
+				</div>
+			</div>
+		</div>
+    </div>
+	
+	<footer>
+		<p class="pull-right"><a href="#">Back to top</a></p>
+		<p>2014 Company, Inc.<a href="">Privacy</a><a href="">Terms</a></p>
+	</footer>
+
+</div>
+

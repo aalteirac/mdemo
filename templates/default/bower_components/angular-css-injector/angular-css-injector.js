@@ -63,8 +63,26 @@ angular.module('angular.css.injector', [])
                 scope.injectedStylesheets = []; // Make it empty
         };
 		
+		// Used to remove all of the CSS files added with the function `addStylesheet`
+        var remove = function(sheet)
+        {
+            _initScope();
+            
+            if(scope.injectedStylesheets !== undefined) {
+				
+				var i = scope.injectedStylesheets.length;
+				while (i--) {
+					if (scope.injectedStylesheets[i].href == sheet) {
+						scope.injectedStylesheets.splice(i, 1);
+					}
+				}
+				
+			}
+        };
+		
         return {
             add: addStylesheet,
+			remove: remove,
             removeAll: removeAll
         };
 	}

@@ -7,14 +7,41 @@
     <link type="text/css" rel="stylesheet" href="../../css/bar.css">
     <link type="text/css" rel="stylesheet" href="../../css/bootScoped.css">
 	
-	<link href="css/default/bootstrap.min.css" rel="stylesheet">
+	<style>
+		.qv-object-header {display: none;}
+		
+		.mainview-animation.ng-enter {
+		  -webkit-transition: 0.5s linear all; /* Safari/Chrome */
+		  -moz-transition: 0.5s linear all; /* Firefox */
+		  -o-transition: 0.5s linear all; /* Opera */
+		  transition: 0.5s linear all; /* IE10+ and Future Browsers */
+		}
+
+		.mainview-animation.ng-enter{
+		  opacity: 0;
+		}
+
+		.mainview-animation.ng-enter.ng-enter-active { 
+		  opacity: 1;
+		}
+
+		.mainview-animation.ng-leave{
+		  opacity: 0;
+		}
+
+		.mainview-animation.ng-leave.ng-leave-active { 
+		  opacity: 1;
+		}
+		
+	</style>
+	
 	<!--<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">-->
 	<!--<link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">-->
 	
 </head>
 <body id="main" style="position: static;">
 	
-	<div ng-view>
+	<div ng-view class="mainview-animation"> 
 	</div>
 
 	<script src="/resources/assets/external/requirejs/require.js"></script>

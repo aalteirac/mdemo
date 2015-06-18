@@ -7,22 +7,22 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="#" class="navbar-brand">{{ navbar.brand }}</a>
+			<a href="#/mashups" class="navbar-brand">{{ navbar.brand }}</a>
 		</div>
 
 		<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
 			<ul class="nav navbar-nav">
 				<li ng-repeat-start="navItem in navbar.left" ng-if="false"></li>
 				
-				<li ng-if="navItem.type == 'link'">
-					<a href="#">{{ navItem.title }}</a>
+				<li ng-if="navItem.items.length == 0">
+					<a href="#/{{state.route.mashupId}}/{{ navItem.page }}">{{ navItem.title }}</a>
 				</li>
 				
-				<li ng-if="navItem.type == 'dropdown'" class="dropdown" dropdown>	
+				<li ng-if="navItem.items.length > 0" class="dropdown" dropdown>	
 					<a href="#" class="dropdown-toggle " dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">{{ navItem.title }} <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li ng-repeat="navSubItem in navItem.items" ng-class="{'divider': navSubItem.type == 'sep'}">
-							<a href="#" ng-if="navSubItem.type == 'link'">{{navSubItem.title}}</a>
+							<a href="#/{{state.route.mashupId}}/{{ navSubItem.page }}" ng-if="navSubItem.type == 'link'">{{navSubItem.title}}</a>
 						</li>
 					</ul>
 				</li>

@@ -18,7 +18,7 @@ define([
 	//app_cached_providers
 	//.$controllerProvider
 	
-	app.controller('NavCtrl', function ($scope, selfService) {
+	app.controller('NavCtrl', function ($scope, dataService, selfService) {
 		
 		$scope.switchEdit = selfService.switchEdit;
 		$scope.configPage = selfService.configPage;
@@ -26,34 +26,37 @@ define([
 		$scope.clearPanels = selfService.resetSelected;
 		$scope.configPanels = selfService.configPanels;
 		$scope.removePanels = selfService.removePanels;
+	
+		$scope.state = dataService.getState();
+		$scope.store = dataService.getStore();
 		
-		$scope.state = selfService.getState();
+		$scope.navbar = $scope.store.navbar;
 		
-		$scope.modified = false;
-		
-		$scope.navbar = $scope.state.navbar;
-		
-		$scope.modify = function() {
-			$scope.modified = true;
-		}
-		
-		$scope.save = function() {
-			$scope.modified = false;
-		}
+
 		
 	});
 
-	app.controller('views/MainCtrl', function ($scope, $modal, selfService) {
+	app.controller('views/MainCtrl', function ($scope, $modal, dataService, selfService, cssInjector) {
 
 		$scope.open = function() {
 			$window.location.href = 'http://branch.qlik.com/projects/showthread.php?529-Mashup-Builder-for-Demo';
 		}
 
-		$scope.state = selfService.getState();
+		$scope.state = dataService.getState();
+		$scope.store = dataService.getStore();
 		
-		$scope.header = $scope.state.header;
-		$scope.rows = $scope.state.rows;
+		$scope.$watch(function(){
+			return dataService.getStore();
+		}, function (newValue, oldValue) {
+			if(oldValue != newValue) $scope.state.modified = true;
+		}, true);
 		
+		$scope.header = $scope.store.header;
+		$scope.rows = $scope.store.rows;
+		
+		cssInjector.removeAll();
+		cssInjector.add("css/" + $scope.store.navbar.theme + "/bootstrap.min.css");
+
 		$scope.sortableOptions = {
 			handle: '.dragHandle',
 			'ui-floating': true
@@ -76,17 +79,17 @@ define([
 		$scope.deletePanel = selfService.removePanel;
 	});
 	
-	app.controller('views/MainModalConfigPanelCtrl', function ($scope, $modalInstance, panelConfig, selfService, $q, cssInjector) {
-		
+	app.controller('views/MainModalConfigPanelCtrl', function ($scope, $modalInstance, panelConfig, dataService, selfService, $q, cssInjector) {
+
 		cssInjector.add("bower_components/ladda/dist/ladda-themeless.min.css");
 		
+		$scope.config = $.extend(true, {}, panelConfig[0]);
+		
+		$scope.state = dataService.getState();
+		$scope.cache = dataService.getCache();
+		
 		$scope.multiple = panelConfig.length > 1;
-		
-		$scope.config = $.extend({}, panelConfig[0]);
-		$scope.config.id = $.extend({}, $scope.config.id);
-		
-		$scope.state = selfService.getState();
-		
+
 		$scope.appChanged = function(selectedApp) {
 			
 			$scope.appLoading = true;
@@ -202,16 +205,19 @@ define([
 			
 			if(!$scope.multiple) {
 
-				$modalInstance.close($scope.config);
+				$.extend(true, panelConfig[0], $scope.config);
+				$modalInstance.close(true);
 				
 			} else {
 				
-				$modalInstance.close({
-					color: $scope.config.color,
-					width: $scope.config.width,
-					height: $scope.config.height,
-					showTitle: $scope.config.showTitle
+				panelConfig.forEach(function(item) {
+					item.showTitle = $scope.config.showTitle;
+					item.color = $scope.config.color;
+					item.width = $scope.config.width;
+					item.height = $scope.config.height;
 				});
+				
+				$modalInstance.close(true);
 				
 			}
 		};
@@ -238,8 +244,12 @@ define([
 		
 		cssInjector.add("bower_components/angular-ui-tree/angular-ui-tree.min.css");
 		
-		$scope.navbar = pageConfig.navbar;
-		$scope.header = pageConfig.header;
+		$scope.mashup = $.extend(true, {}, pageConfig.mashup);
+		$scope.themes = pageConfig.themes;
+		$scope.navbar = $.extend(true, {}, pageConfig.navbar);
+		$scope.header = $.extend(true, {}, pageConfig.header);
+		
+		$scope.theme = $scope.navbar.theme;
 		
 		$scope.firstOpen = true;
 		
@@ -250,6 +260,16 @@ define([
 		$scope.toggle = function(scope) {
 		    scope.toggle();
 		};
+		
+		$scope.addPage = function() {
+			$scope.navbar.left.push({
+		        id: $scope.navbar.left.length,
+		        title: 'Page ' + ($scope.navbar.left.length + 1),
+				page: ($scope.navbar.left.length + 1),
+				type: 'link',
+		        items: []
+		    })
+		};
 
 		$scope.moveLastToTheBeginning = function() {
 		    var a = $scope.data.pop();
@@ -258,10 +278,13 @@ define([
 
 		$scope.newSubItem = function(scope) {
 		    var nodeData = scope.$modelValue;
-		    nodeData.nodes.push({
-		        id: nodeData.id * 10 + nodeData.nodes.length,
-		        title: nodeData.title + '.' + (nodeData.nodes.length + 1),
-		        nodes: []
+					
+		    nodeData.items.push({
+		        id: nodeData.id * 10 + nodeData.items.length,
+		        title: nodeData.title + '.' + (nodeData.items.length + 1),
+				page: '1',
+				type: 'link',
+		        items: []
 		    });
 		};
 
@@ -273,9 +296,22 @@ define([
 		    $scope.$broadcast('expandAll');
 		};
 
-		
-		
 		$scope.ok = function () {
+			
+			if($scope.navbar.theme != pageConfig.navbar.theme) {
+				cssInjector.add("css/" + $scope.navbar.theme + "/bootstrap.min.css");
+				cssInjector.remove("css/" + pageConfig.navbar.theme + "/bootstrap.min.css");
+			}
+			
+			pageConfig.mashup.color = $scope.mashup.color;
+			pageConfig.mashup.name = $scope.mashup.name;
+
+			pageConfig.navbar.theme = $scope.navbar.theme;
+			pageConfig.navbar.brand = $scope.navbar.brand;
+			pageConfig.navbar.left = $scope.navbar.left;
+			
+			$.extend(true, pageConfig.header, $scope.header);
+			
 			$modalInstance.close(true);
 		};
 

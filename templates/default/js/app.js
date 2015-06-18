@@ -40,12 +40,46 @@ define([
 	
 	var app = angular.module('default', [
 		'ngRoute',
+		'ngAnimate',
 		'ui.bootstrap',
 		'ui.sortable',
 		'ui.tree',
 		'angular.css.injector',
 		'angular-ladda'
 	]);
+	
+	var views = {
+		/* main: { template: 'views/main/main.html', ctrl: 'views/MainCtrl', ctrlFile: 'extView/main/mainCtrl'  } */
+	}
+	
+	app.config(['$routeProvider', function($routeProvider) {
+		
+		$routeProvider.when('/mashups', {
+			templateUrl: 'views/mashups/mashups.html',
+			controller: 'views/MashupsCtrl'
+		});
+		
+		$routeProvider.when('/:mashupId/:pageId', {
+			templateUrl: 'views/main/main.html',
+			controller: 'views/MainCtrl'
+		});
+		
+		$.each(views, function(k, v) {
+			$routeProvider.when('/' + k, {
+				templateUrl: v.template,
+				controller: v.ctrl,
+				resolve: {
+					loadMainCtrl: ["$q", function($q) { 
+						var deferred = $q.defer();
+						require([v.ctrlFile], function() { deferred.resolve(); });
+						return deferred.promise;
+					}],
+				},
+			});
+		})
+		
+		$routeProvider.otherwise({redirectTo: '/mashups'});
+	}]);
 	
 	app.config(['$controllerProvider', '$compileProvider',
 		function(controllerProvider, compileProvider) {

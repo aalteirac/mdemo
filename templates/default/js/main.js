@@ -4,113 +4,171 @@ define([
 	'js/qlik',
 	'jquery',
 	'app',
-	'extView/main/mainCtrl'
+	'extView/main/mainCtrl',
+	'extView/mashups/mashupsCtrl'
 ], function(qlik, $, app) {
-	
-	var views = {
-		/* main: { template: 'views/main/main.html', ctrl: 'views/MainCtrl', ctrlFile: 'extView/main/mainCtrl'  } */
-	}
-	
-	app.config(['$routeProvider', function($routeProvider) {
+
+	app.service('dataService', ['$route', '$routeParams', function($route, $routeParams) {
 		
-		$routeProvider.when('/main', {
-			templateUrl: 'views/main/main.html',
-			controller: 'views/MainCtrl'
-		});
-		
-		$.each(views, function(k, v) {
-			$routeProvider.when('/' + k, {
-				templateUrl: v.template,
-				controller: v.ctrl,
-				resolve: {
-					loadMainCtrl: ["$q", function($q) { 
-						var deferred = $q.defer();
-						require([v.ctrlFile], function() { deferred.resolve(); });
-						return deferred.promise;
-					}],
-				},
-			});
-		})
-		
-		$routeProvider.otherwise({redirectTo: '/main'});
-	}]);
-	
-	app.service('dataService', function() {
-		
-        var store = {
+		var state = {
 			edit: false,
 			multiselect: false,
 			modified: false,
-			navbar: {
-				brand: 'Qlik',
-				left: [
-					{ type: 'link', title: 'Link' },
-					{ type: 'link', title: 'Link' },
-					{
-						type: 'dropdown',
-						title: 'Dropdown',
-						items: [
-							{ type: 'link', title: 'Action' },
-							{ type: 'link', title: 'Another action' },
-							{ type: 'link', title: 'Something else here' },
-							{ type: 'sep' },
-							{ type: 'link', title: 'Separated link' },
-							{ type: 'sep' },
-							{ type: 'link', title: 'One more separated link' }
-						]
-					}
-				]
-			},
-			header: {
-				show: true,
-				title: 'Default',
-				description: 'This is a mashup template that works with Anthony Alteirac MDemo\'s mashup and that combines AngularJS, RequireJS and Bootstrap! Enjoy ;)'
-			},
+			route: $routeParams,
+		}
+		
+		var cache = {
 			apps: [],
-			rows: [
-				[
-
-				]
+			themes: [
+				'cerulean',
+				'cosmo',
+				'cyborg',
+				'darkly',
+				'default',
+				'flatly',
+				'journal',
+				'lumen',
+				'paper',
+				'readable',
+				'sandstone',
+				'simplex',
+				'slate',
+				'spacelab',
+				'superhero',
+				'united',
+				'yeti'
 			]
+		}
+		
+		var navBar = {
+			brand: 'Qlik',
+			left: [
+				{ id: 1, type: 'link', title: 'Default', page: '1', items: [] }
+			],
+			theme: 'default'
+		}
+		
+        var store = {
+			mashups: {
+				'default': {
+					name: "Default Mashup",
+					title: 'default',
+					color: 'default',
+					navbar: navBar,
+					pages: {
+						'1': {
+							navbar: navBar,
+							header: {
+								show: true,
+								title: 'Default',
+								description: 'Welcome to the default mashup!'
+							},
+							rows: [
+								[
+
+								]
+							]
+						}
+					}
+				}
+			}
 		};
 		
 		qlik.getAppList(function(b) {
 			b.forEach(function(a) {
-				store.apps.push({
+				cache.apps.push({
 					id: a.qDocId,
 					type: a.qDocName
 				})
 			})
 		});
 		
+		
+		var getMashup = function() {
+			
+			if(typeof store.mashups[$routeParams.mashupId] === 'undefined') {
+				
+				store.mashups[$routeParams.mashupId] = {
+					name: "New mashup",
+					title: $routeParams.mashupId,
+					color: 'default',
+					navbar: {
+						brand: 'Company',
+						left: [
+							{ id: 1, type: 'link', title: 'Main', page: '1', items: [] }
+						],
+						theme: 'default'
+					},
+					pages: { }
+				}
+				
+			}
+			
+			return store.mashups[$routeParams.mashupId];
+		}
+		
+		var getPage = function() {
+
+			var mashup = getMashup();
+
+			if(typeof mashup.pages[$routeParams.pageId] === 'undefined') {
+				mashup.pages[$routeParams.pageId] = {
+					navbar: mashup.navbar,
+					header: {
+						show: true,
+						title: 'Page ' + $routeParams.pageId,
+						description: 'This is page ' + $routeParams.pageId
+					},
+					rows: [
+						[
+
+						]
+					]
+				}
+			}
+			
+			return mashup.pages[$routeParams.pageId];
+		}
+		
+		var getStore = function() {
+			if($route.current.$$route.originalPath == '/mashups')
+				return store;
+			
+			return getPage();
+		}
+		
 		var resetSelected = function() {
-			store.rows.forEach(function(row) {
+			var page = getPage();
+			page.rows.forEach(function(row) {
 				row.forEach(function(item) {
 					item.selected = false;
 				});
 			});
-			store.multiselect = false;
+			state.multiselect = false;
 		};
 		
 		var recalcMultiselect = function() {
+			var page = getPage();
 			var retVal = 0;
-			store.rows.forEach(function(row) {
+			page.rows.forEach(function(row) {
 				row.forEach(function(item) {
 					if(item.selected) retVal++;
 				});
 			});
-			store.multiselect = (retVal > 0);
+			state.multiselect = (retVal > 0);
 		};
 		
 		var add = function(row) {
-			store.rows[0].push(row);
+			var page = getPage();
+			page.rows[0].push(row);
 		}
 		
 		var remove = function(selected, index) {
+			var page = getPage();
 			if(!selected) {	
-				store.rows[0].splice(index, 1);
+				page.rows[0].splice(index, 1);
 			} else {
-				store.rows[0].removeIf(function(item) {
+				page.rows[0].removeIf(function(item) {
 					return item.selected;
 				})
 			}
@@ -118,8 +176,17 @@ define([
 		
 		var self = {
 			
-            getStore: function () {
-                return store;
+			getState: function () {
+                return state;
+            },
+			getCache: function () {
+                return cache;
+            },
+			getStore: function () {
+                return getStore();
+            },
+			getMashup: function () {
+                return getMashup();
             },
             
 			resetSelected: resetSelected,
@@ -131,7 +198,7 @@ define([
 		return self;
 		
 		
-	});
+	}]);
 	
 	app.service('modalService',  ['$modal', 'dataService', function ($modal, dataService) {
 		
@@ -151,22 +218,6 @@ define([
 
 			modalInstance.result.then(function (result) {
 				if(result) {
-					
-					if(rows.length == 1) {
-						
-						$.extend(rows[0], result);
-
-					} else {
-						
-						rows.forEach(function(item) {
-							item.showTitle = result.showTitle;
-							item.color = result.color;
-							item.width = result.width;
-							item.height = result.height;
-						});
-						
-					}
-					
 					qlik.resize();
 				}
 			});
@@ -182,7 +233,12 @@ define([
 				size: 'lg',
 				resolve: {
 					pageConfig: function () {
-						return dataService.getStore();
+						return $.extend(
+							{},
+							dataService.getCache(),
+							dataService.getStore(),
+							{ mashup: dataService.getMashup() }
+						);
 					}
 				}
 			});
@@ -217,18 +273,20 @@ define([
 	
 	app.service('selfService', [ 'modalService', 'dataService', function (modalService, dataService) {
 		
-		var store = dataService.getStore();
+		var state = dataService.getState();
 		
 		var switchEdit = function() {
-			store.edit = !store.edit;
+			state.edit = !state.edit;
 			dataService.resetSelected();
 		}
 		
 		var configPanel = function(index) {
+			var store = dataService.getStore();
 			modalService.config([ store.rows[0][index] ]);
 		}
 		
 		var configPanels = function() {
+			var store = dataService.getStore();
 			modalService.config(store.rows[0].filter(function(item) {
 				return item.selected;
 			}));
@@ -247,14 +305,12 @@ define([
 		}
 		
 		var selectPanel = function(index) {
+			var store = dataService.getStore();
 			store.rows[0][index].selected = !store.rows[0][index].selected;
 			dataService.recalcMultiselect();
 		}
 
         var self = {
-            getState: function () {
-                return store;
-            },
             switchEdit: switchEdit,
 			resetSelected: dataService.resetSelected,
 			
@@ -272,8 +328,6 @@ define([
 		
 		return self;
     }]);
-	
-	
 	
 	return app;
 });
