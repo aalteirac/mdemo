@@ -270,7 +270,6 @@ require.config( {
                 scope.curTemplateName='Select a Template',
                 //list based on files
                 scope.templates = [
-					{name:' default', path:'templates/default/ifr.html'},
                     {name:' SmartBoard', path:'templates/admin/ifr.html'},
                     {name:' MashBoard', path:'templates/startapp/ifr.html'},
                     {name:' Elegant', path:'templates/unify/ifr.html'},
@@ -278,7 +277,8 @@ require.config( {
                     {name:' Rotating', path:'templates/rotating/ifr.html'},
                     {name:' Carousel', path:'templates/carousel/ifr.html'},
                     {name:' DAR', path:'templates/tabsDAR/ifr.html'},
-                    {name:' Funny', path:'templates/funny/ifr.html'}
+                    {name:' Funny', path:'templates/funny/ifr.html'},
+					{name:' Self-service Mashup (for Qlik Sense 2.0)', path:'templates/default/ifr.html'},
 
                 ];
                 scope.curApp='Select Application...';

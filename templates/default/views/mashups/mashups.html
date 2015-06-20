@@ -10,22 +10,18 @@
 <div class="container marketing">
 
 	<div class="row">
-		<div class="col-lg-3" ng-repeat="mashup in store.mashups">
-			<div class="panel panel-default">
-				<div class="panel-body bg-{{mashup.color}}" style="width: 100%; height: 200px;">
-					<a href="#/{{mashup.title}}/1">
-						<h2 class="bg-{{mashup.color}}">{{mashup.name}}</h2>
-					</a>
-				</div>
+		<div class="col-xs-6 col-sm-3 col-md-2 col-lg-2" ng-repeat="mashup in store.mashups" context-menu="menuOptions">
+			<div class="thumbnail tile tile-medium tile-{{mashup.color}}">
+				<a href="#/{{mashup.title}}/1">
+					<h1>{{mashup.name}}</h1>
+				</a>
 			</div>
 		</div>
-		<div class="col-lg-3">
-			<div class="panel panel-default">
-				<div class="panel-body bg-default" style="width: 100%; height: 200px;">
-					<button type="button" class="btn btn-default btn-lg" ng-click="addMashup()">
-						<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> New mashup!
-					</button>
-				</div>
+		<div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+			<div class="thumbnail tile tile-medium">
+				<a ng-click="addMashup()">
+					<h1><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> New!</h1>
+				</a>
 			</div>
 		</div>
     </div>

@@ -20,8 +20,10 @@ require.config({
 		angularUiTree:			extBowerRoot + '/angular-ui-tree/angular-ui-tree.min',
 		angularBootstrap:		extBowerRoot + '/angular-ui-bootstrap-bower/ui-bootstrap-tpls-0.12.0',
 		angularUiNotification:	extBowerRoot + '/angular-ui-notification/angular-ui-notification.min',
+		angularUiContextmenu:	extBowerRoot + '/angular-ui-contextmenu/angular-ui-contextmenu',
 		jqueryUI: 				extBowerRoot + '/jquery-ui/jquery-ui.min',
 		jquerySortable: 		extBowerRoot + '/jquery-sortable/jquery.sortable',
+		html2canvas: 			extBowerRoot + '/html2canvas/html2canvas.min',
 		ladda:					extBowerRoot + '/ladda/dist/ladda.min',
 		spin:					extBowerRoot + '/ladda/dist/spin.min',
 		text:					extBowerRoot + '/requirejs-text/text'
@@ -60,6 +62,10 @@ require.config({
 			deps: ['angular'],
             exports: 'angularUiNotification'
 		},
+		'angularUiContextmenu': {
+			deps: ['angular'],
+            exports: 'angularUiContextmenu'
+		},
 		'jqueryUI': {
 			deps: ['jquery'],
 			exports: 'jqueryUI'
@@ -67,6 +73,10 @@ require.config({
 		'jquerySortable': {
 			deps: ['jquery'],
 			exports: 'jquerySortable'
+		},
+		'html2canvas': {
+			deps: ['jquery'],
+			exports: 'html2canvas'
 		},
 		'ladda': {
 			deps: ['angular'],

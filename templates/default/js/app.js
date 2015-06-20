@@ -35,6 +35,7 @@ define([
 	'angularUiSortable',
 	'angularUiTree',
 	'angularUiNotification',
+	'angularUiContextmenu',
 	'angularCssInjector',
 	'angularLadda'
 ], function(qlik, angular) {
@@ -46,6 +47,7 @@ define([
 		'ui.sortable',
 		'ui.tree',
 		'ui-notification',
+		'ui.bootstrap.contextMenu',
 		'angular.css.injector',
 		'angular-ladda'
 	]);

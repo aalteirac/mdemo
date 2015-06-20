@@ -62,11 +62,28 @@ define([
 				color: 'default',
 				text: "This item is empty!",
 				width: 4,
-				height: 200
+				height: 200,
+				selected: false,
+				max: false
 			});
 		}
 		
-		$scope.selectPanel = selfService.selectPanel;
+		//$scope.selectPanel = selfService.selectPanel;
+		
+		$scope.selectPanel = function($itemScope) {
+			$itemScope.selected = !$itemScope.selected;
+			
+			if($itemScope.selected) {
+				$scope.state.selected.push($itemScope);
+			} else {
+				$scope.state.selected.removeIf(function(item) {
+					return item.$id == $itemScope.$id;
+				})
+			}
+			
+			dataService.recalcMultiselect();
+		};
+		
 		$scope.configPanel = selfService.configPanel;
 		$scope.deletePanel = selfService.removePanel;
 	});
@@ -75,7 +92,7 @@ define([
 
 		cssInjector.add("bower_components/ladda/dist/ladda-themeless.min.css");
 		
-		$scope.config = $.extend(true, {}, rows[0]);
+		$scope.config = rows[0];
 		
 		$scope.state = dataService.getState();
 		$scope.cache = dataService.getCache();
@@ -193,24 +210,7 @@ define([
 		}
 		
 		$scope.ok = function () {
-			
-			if(!$scope.multiple) {
-
-				$.extend(true, rows[0], $scope.config);
-				$modalInstance.close(true);
-				
-			} else {
-				
-				rows.forEach(function(item) {
-					item.showTitle = $scope.config.showTitle;
-					item.color = $scope.config.color;
-					item.width = $scope.config.width;
-					item.height = $scope.config.height;
-				});
-				
-				$modalInstance.close(true);
-				
-			}
+			$modalInstance.close($scope.config);
 		};
 
 		$scope.cancel = function () {
@@ -219,12 +219,9 @@ define([
 		
 	});
 	
-	app.controller('views/MainModalDeletePanelCtrl', function ($scope, $modalInstance, dataService, selected, index) {
+	app.controller('views/MainModalDeletePanelCtrl', function ($scope, $modalInstance, dataService) {
 
 		$scope.ok = function () {
-
-			dataService.remove(selected, index);
-			
 			$modalInstance.close(true);
 		};
 
@@ -234,15 +231,15 @@ define([
 		
 	});
 	
-	app.controller('views/MainModalConfigPageCtrl', function ($scope, $modalInstance, cssInjector, dataService) {
+	app.controller('views/MainModalConfigPageCtrl', function ($scope, $modalInstance, cssInjector, dataService, config, mashup) {
 		
 		cssInjector.add("bower_components/angular-ui-tree/angular-ui-tree.min.css");
 		
 		$scope.cache = dataService.getCache();
 		$scope.state = dataService.getState();
 		
-		$scope.config = $.extend(true, {}, dataService.getConfig());
-		$scope.mashup = $.extend(true, {}, dataService.getMashup());
+		$scope.config = config;
+		$scope.mashup = mashup;
 
 		$scope.firstOpen = true;
 		
@@ -302,6 +299,8 @@ define([
 			$.extend(true, dataService.getConfig(), $scope.config);
 			
 			$modalInstance.close(true);
+			
+			qlik.resize();
 		};
 
 		$scope.cancel = function () {

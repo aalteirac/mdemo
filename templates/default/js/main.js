@@ -13,6 +13,7 @@ define([
 		var state = {
 			edit: false,
 			multiselect: false,
+			selected: [],
 			modified: false,
 			route: $routeParams,
 		}
@@ -28,6 +29,7 @@ define([
 				'flatly',
 				'journal',
 				'lumen',
+				'metro',
 				'paper',
 				'readable',
 				'sandstone',
@@ -37,6 +39,34 @@ define([
 				'superhero',
 				'united',
 				'yeti'
+			],
+			tiles: [
+				'blue',
+				'green',
+				'red',
+				'yellow',
+				'orange',
+				'pink',
+				'purple',
+				'lime',
+				'magenta',
+				'teal',
+				'turquoise',
+				'green-sea',
+				'emerald',
+				'nephritis',
+				'peter-river',
+				'belize-hole',
+				'amethyst',
+				'wisteria',
+				'wet-asphalt',
+				'midnight-blue',
+				'sun-flower',
+				'carrot',
+				'pumpkin',
+				'alizarin',
+				'pomegranate',
+				'clouds'
 			]
 		}
 			
@@ -154,24 +184,16 @@ define([
 		}
 		
 		var resetSelected = function() {
-			var page = getPage();
-			page.rows.forEach(function(row) {
-				row.forEach(function(item) {
-					item.selected = false;
-				});
-			});
+			state.selected.forEach(function(item) {
+				item.selected = false;
+			})
+			
+			state.selected = [];
 			state.multiselect = false;
 		};
 		
 		var recalcMultiselect = function() {
-			var page = getPage();
-			var retVal = 0;
-			page.rows.forEach(function(row) {
-				row.forEach(function(item) {
-					if(item.selected) retVal++;
-				});
-			});
-			state.multiselect = (retVal > 0);
+			state.multiselect = (state.selected.length > 0);
 		};
 		
 		var add = function(row) {
@@ -184,8 +206,16 @@ define([
 			if(!selected) {	
 				page.rows[0].splice(index, 1);
 			} else {
-				page.rows[0].removeIf(function(item) {
-					return item.selected;
+				
+				page.rows[0].removeIf(function(item, index) {
+					var found = state.selected.filter(function(selectedItem) {
+						return selectedItem.$index == index;
+					})[0]
+					
+					if(found) {
+						return found.selected;
+					}
+					return false;
 				})
 			}
 			
@@ -237,8 +267,26 @@ define([
 				size: 'lg',
 				resolve: {
 					rows: function () {
-						return rows;
+						return $.extend(true, [], rows);
 					}
+				}
+			});
+			
+			modalInstance.result.then(function (result) {
+				
+				if(rows.length == 1) {
+
+					$.extend(true, rows[0], result);
+					
+				} else {
+					
+					rows.forEach(function(item) {
+						item.showTitle = result.showTitle;
+						item.color = result.color;
+						item.width = result.width;
+						item.height = result.height;
+					});
+					
 				}
 			});
 			
@@ -250,7 +298,15 @@ define([
 				animation: true,
 				templateUrl: 'views/main/main.modal.configPage.html',
 				controller: 'views/MainModalConfigPageCtrl',
-				size: 'lg'
+				size: 'lg',
+				resolve: {
+					config: function() {
+						return $.extend(true, {}, dataService.getConfig());
+					},
+					mashup: function() {
+						return $.extend(true, {}, dataService.getMashup());
+					}
+				}
 			});
 			
 		}
@@ -260,14 +316,12 @@ define([
 			var modalInstance = $modal.open({
 				animation: true,
 				templateUrl: 'views/main/main.modal.deletePanel.html',
-				controller: 'views/MainModalDeletePanelCtrl',
-				resolve: {
-					selected: function () {
-						return selected;
-					},
-					index: function() {
-						return index;
-					}
+				controller: 'views/MainModalDeletePanelCtrl'
+			});
+			
+			modalInstance.result.then(function (result) {
+				if(result) {
+					dataService.remove(selected, index);
 				}
 			});
 			
@@ -306,8 +360,15 @@ define([
 		
 		var configPanels = function() {
 			var config = dataService.getConfig();
-			modalService.config(config.rows[0].filter(function(item) {
-				return item.selected;
+			modalService.config(config.rows[0].filter(function(item, index) {
+				var found = state.selected.filter(function(selectedItem) {
+					return selectedItem.$index == index;
+				})[0]
+				
+				if(found) {
+					return found.selected;
+				}
+				return false;
 			}));
 		}
 		

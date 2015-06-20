@@ -5,10 +5,10 @@ define([
 	'utils'
 ], function (qlik, app, $) {
 
-	app.controller('views/MashupsCtrl', function ($scope, $modal, dataService, cssInjector) {
+	app.controller('views/MashupsCtrl', function ($scope, $modal, $location, dataService, cssInjector) {
 		
 		cssInjector.removeAll();
-		cssInjector.add("css/yeti/bootstrap.min.css");
+		cssInjector.add("css/metro/bootstrap.min.css");
 		
 		$scope.store = dataService.getStore();
 
@@ -20,7 +20,22 @@ define([
 				controller: 'views/MashupsModalNewCtrl',
 				size: 'lg'
 			});
+			
+			modalInstance.result.then(function (selectedItem) {
+				dataService.setStore();
+			});
 		}
+		
+		$scope.menuOptions = [
+			['Open', function ($itemScope) {
+				$location.path( '/' + $itemScope.mashup.title + '/1' );
+			}],
+			null,
+			['Delete', function ($itemScope) {
+				delete $scope.store.mashups[$itemScope.mashup.title];
+				dataService.setStore();
+			}]
+		];
 	});
 	
 	app.controller('views/MashupsModalNewCtrl', function ($scope, $modalInstance, dataService) {
