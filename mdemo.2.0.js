@@ -277,7 +277,8 @@ require.config( {
                     {name:' Rotating', path:'templates/rotating/ifr.html'},
                     {name:' Carousel', path:'templates/carousel/ifr.html'},
                     {name:' DAR', path:'templates/tabsDAR/ifr.html'},
-                    {name:' Funny', path:'templates/funny/ifr.html'}
+                    {name:' Funny', path:'templates/funny/ifr.html'},
+					{name:' Self-service Mashup (for Qlik Sense 2.0)', path:'templates/default/ifr.html'},
 
                 ];
                 scope.curApp='Select Application...';

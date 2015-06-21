@@ -1,0 +1,123 @@
+<div class="modal-header">
+	<h3 class="modal-title">Config page!</h3>
+</div>
+<div class="modal-body">
+	
+	<script type="text/ng-template" id="nodes_renderer.html">
+		<div ui-tree-handle class="tree-node tree-node-content">
+			<a class="btn btn-success btn-xs" ng-if="item.items && item.items.length > 0" data-nodrag ng-click="toggle(this)">
+				<span
+					class="glyphicon"
+					ng-class="{
+						'glyphicon-chevron-right': collapsed,
+						'glyphicon-chevron-down': !collapsed
+					}"
+				>
+				</span>
+			</a>
+			{{item.type == 'sep' ? '----- Séparateur -----' : (item.title.length == 0 ? '[Empty]' : item.title)}}
+			<span class="btn-group pull-right">
+				<i class="btn btn-primary btn-xs glyphicon glyphicon-plus" data-nodrag ng-click="newSubItem(this)"></i>
+				<i class="btn btn-danger btn-xs glyphicon glyphicon-remove" data-nodrag ng-click="remove(this)"></i>
+			</span>
+			<input class="col-xs-2 col-md-2 col-lg-2 pull-right" ng-model="item.page" type="text" placeholder="Title">
+			<input class="col-xs-2 col-md-2 col-lg-2 pull-right" ng-model="item.title" type="text" placeholder="Title">
+		</div>
+		<ol ui-tree-nodes="" ng-model="item.items" ng-class="{hidden: collapsed}">
+			<li ng-repeat="item in item.items" ui-tree-node ng-include="'nodes_renderer.html'">
+			</li>
+		</ol>
+	</script>
+	
+	<accordion close-others="true">
+		<accordion-group heading="Mashup" is-open="firstOpen">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Name</label>
+					<div class="col-sm-10">
+						<input ng-model="mashup.name" type="text" class="form-control" placeholder="Name">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Id</label>
+					<div class="col-sm-10">
+						<input ng-disabled="true" ng-model="mashup.title" type="text" class="form-control" placeholder="Title">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Color</label>
+					<div class="col-sm-10">
+						<button type="button" class="btn col-sm-2 tile" ng-class="'tile-' + item" ng-repeat="item in cache.tiles" ng-click="mashup.color = item">
+							{{item}} <span ng-if="mashup.color == item" class="glyphicon glyphicon-ok"></span>
+						</button>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Theme</label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="mashup.theme" ng-options="theme for theme in cache.themes"></select>
+					</div>
+				</div>
+			</form>
+		</accordion-group>
+		<accordion-group heading="Navigation bar">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Brand</label>
+					<div class="col-sm-10">
+						<input ng-model="mashup.navbar.brand" type="text" class="form-control" placeholder="Brand">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Navigation</label>
+					<div class="col-sm-10">
+						<div ui-tree id="tree-root">
+							<ol ui-tree-nodes ng-model="mashup.navbar.left">
+								<li ng-repeat="item in mashup.navbar.left" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label"></label>
+					<div class="col-sm-10">
+						<button type="button" class="btn btn-default btn-lg" ng-click="addPage()">
+							<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add page ...
+						</button>
+					</div>
+				</div>
+			</form>
+		</accordion-group>
+		<accordion-group heading="Header">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Header</label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<input ng-model="config.header.show" type="checkbox" aria-label="Show Header">
+							</span>
+							<input ng-disabled="!config.header.show" ng-model="config.header.title" type="text" class="form-control" placeholder="Title">
+						</div>
+					</div>
+				</div>
+				<div ng-if="config.header.show" class="form-group">
+					<label class="col-sm-2 control-label">Description</label>
+					<div class="col-sm-10">
+						<textarea ng-model="config.header.description" rows="5" type="text" class="form-control" placeholder="Title">
+						</textarea>
+					</div>
+				</div>
+			</form>
+		</accordion-group>
+
+	</accordion>
+
+
+	
+	
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="ok()">OK</button>
+	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

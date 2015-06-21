@@ -1,0 +1,103 @@
+<div class="modal-header">
+	<h3 class="modal-title">Configure widget</h3>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Title</label>
+			<div class="col-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon">
+						<input ng-model="config.showTitle" type="checkbox" aria-label="Show Title">
+					</span>
+					<input ng-if="!multiple" ng-disabled="!config.showTitle" ng-model="config.title" type="text" class="form-control" placeholder="Title">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Color</label>
+			<div class="col-sm-10">
+				<div class="btn-group" style="width: 100%;">
+					<button type="button" class="btn btn-default col-sm-2" ng-click="config.color = 'default'">Default<span ng-if="config.color == 'default'" class="glyphicon glyphicon-ok"></span></button>
+					<button type="button" class="btn btn-primary col-sm-2" ng-click="config.color = 'primary'">Primary<span ng-if="config.color == 'primary'" class="glyphicon glyphicon-ok"></span></button>
+					<button type="button" class="btn btn-success col-sm-2" ng-click="config.color = 'success'">Success<span ng-if="config.color == 'success'" class="glyphicon glyphicon-ok"></span></button>
+					<button type="button" class="btn btn-info col-sm-2" ng-click="config.color = 'info'">Info<span ng-if="config.color == 'info'" class="glyphicon glyphicon-ok"></span></button>
+					<button type="button" class="btn btn-warning col-sm-2" ng-click="config.color = 'warning'">Warning<span ng-if="config.color == 'warning'" class="glyphicon glyphicon-ok"></span></button>
+					<button type="button" class="btn btn-danger col-sm-2" ng-click="config.color = 'danger'">Danger<span ng-if="config.color == 'danger'" class="glyphicon glyphicon-ok"></span></button>
+				</div>
+			</div>
+		</div>
+		<div ng-if="!multiple" class="form-group">
+			<label class="col-sm-2 control-label">Text</label>
+			<div class="col-sm-10">
+				<input ng-model="config.text" type="text" class="form-control" placeholder="Title">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Width</label>
+			<div class="col-sm-10">
+				<div class="btn-group" style="width: 100%;">
+					<button type="button" ng-class="{'btn-primary': config.width >= 3}" class="btn btn-default col-sm-3" ng-click="config.width = 3">1/4</button>
+					<button type="button" ng-class="{'btn-primary': config.width >= 4}" class="btn btn-default col-sm-1" ng-click="config.width = 4">1/3</button>
+					<button type="button" ng-class="{'btn-primary': config.width >= 6}" class="btn btn-default col-sm-2" ng-click="config.width = 6">1/2</button>
+					<button type="button" ng-class="{'btn-primary': config.width >= 8}" class="btn btn-default col-sm-2" ng-click="config.width = 8">2/3</button>
+					<button type="button" ng-class="{'btn-primary': config.width >= 9}" class="btn btn-default col-sm-1" ng-click="config.width = 9">3/4</button>
+					<button type="button" ng-class="{'btn-primary': config.width >= 12}" class="btn btn-default col-sm-3" ng-click="config.width = 12">1</button>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Height</label>
+			<div class="col-sm-10">
+				<div class="btn-group" style="width: 100%;">
+					<button type="button" ng-class="{'btn-primary': config.height >= 100}" class="btn btn-default col-sm-2" ng-click="config.height = 100">100</button>
+					<button type="button" ng-class="{'btn-primary': config.height >= 200}" class="btn btn-default col-sm-2" ng-click="config.height = 200">200</button>
+					<button type="button" ng-class="{'btn-primary': config.height >= 400}" class="btn btn-default col-sm-4" ng-click="config.height = 400">400</button>
+					<button type="button" ng-class="{'btn-primary': config.height >= 600}" class="btn btn-default col-sm-4" ng-click="config.height = 600">600</button>
+				</div>
+			</div>
+		</div>
+		
+		<div ng-if="!multiple" class="form-group">
+			<label class="col-sm-2 control-label">Application</label>
+			<div class="col-sm-10">
+				<select class="form-control" ng-change="appChanged(selectedApp)" ng-model="selectedApp" ng-options="app.type for app in cache.apps"></select>
+			</div>
+		</div>
+		
+		<div ng-if="!multiple && selectedApp" class="form-group">
+			<label class="col-sm-2 control-label">Object</label>
+			<div class="col-sm-10">	
+			
+				<accordion close-others="true">
+					<accordion-group
+						heading="{{object.title}}"
+						ng-repeat="object in objects"
+					>
+					
+					<div class="list-group">
+						<a
+							class="list-group-item"
+							ng-repeat="item in object.items"
+							ng-class="{active: (config.id.object == item.id && config.id.app == item.appid)}"
+							ng-click="setObject(item)"
+							title="{{item.title}}"
+						>
+							<span ng-if="item.icon" class="icon-{{item.icon}}"></span>
+							<span ng-if="item.qMeta!=undefined">{{item.qMeta.title}}</span>
+							<span ng-if="item.qMeta==undefined">{{item.title}}</span>
+						</a>
+					</div>
+
+					</accordion-group>
+				</accordion>
+
+			</div>
+		</div>
+		
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ladda="appLoading" data-style="expand-right" ng-click="ok()">OK</button>
+	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>
