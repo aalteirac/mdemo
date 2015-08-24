@@ -1632,7 +1632,7 @@ body {
   }
 }
 .qv-global-selections{
-  top:56px;
+  top:62px;
   height: calc(100% - 56px);
   background: #FFFFFF;
 }
