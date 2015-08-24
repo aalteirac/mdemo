@@ -3,6 +3,9 @@
 html,body{
   overflow: hidden;
 }
+.bubble{
+  line-height: 0.2;
+}
 .qv-gs-scroll-container .qv-gs-scroll-area .qv-gs-listbox,.qv-global-selections .qv-gs-header .qv-gs-searchfield{
   border: 0px;
 }
