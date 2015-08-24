@@ -272,6 +272,7 @@ require.config( {
                 scope.templates = [
                     {name:' SmartBoard', path:'templates/admin/ifr.html'},
                     {name:' MashBoard', path:'templates/startapp/ifr.html'},
+                    {name:' LightBoard', path:'templates/lightboard/ifr.html'},
                     {name:' Elegant', path:'templates/unify/ifr.html'},
                     {name:' Mosaic', path:'templates/mosaic/ifr.html'},
                     {name:' Rotating', path:'templates/rotating/ifr.html'},
