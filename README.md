@@ -1,6 +1,6 @@
 A Qlik Sense Mashups demo Extension for Qlik Sense Desktop and Qlik Sense Server
 
-*****NEW TEMPLATE IN THIS VERSION: MASHBOARD******
+*****NEW TEMPLATE IN THE LATEST VERSION: LIGHTBOARD******
 
 Demo here:
 
@@ -8,7 +8,7 @@ Demo here:
 
 TESTED ONLY WITH CHROME and FX. It could work on IE11, but I don't want to know ;-)
 
-*****QLIK SENSE SERVER 1.1 AND 2.0***************
+*****QLIK SENSE SERVER 1.1 AND 2.0.2***************
 
 INSTALLATION:
 
