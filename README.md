@@ -1,6 +1,6 @@
 A Qlik Sense Mashups demo Extension for Qlik Sense Desktop and Qlik Sense Server
 
-*****NEW TEMPLATE IN THE LATEST VERSION: Save and restore your settings******
+*****NEW FEATURE IN THE LATEST VERSION: Save and restore your settings******
 
 *****NEW TEMPLATE IN THE LATEST VERSION: LIGHTBOARD******
 
