@@ -1,11 +1,14 @@
 A Qlik Sense Mashups demo Extension for Qlik Sense Desktop and Qlik Sense Server
 
+*****NEW TEMPLATE IN THE LATEST VERSION: Save and restore your settings******
+
 *****NEW TEMPLATE IN THE LATEST VERSION: LIGHTBOARD******
 
 Demo here:
 
 [![ScreenShot](https://raw.githubusercontent.com/aalteirac/mdemo/master/thumb.png)](https://www.youtube.com/watch?v=USFK1hh5DWY)
 
+Save & restore demo :
 [![ScreenShot](https://raw.githubusercontent.com/aalteirac/mdemo/master/thumbSave.png)](https://www.youtube.com/watch?v=a3oOzo8evhM)
 
 
