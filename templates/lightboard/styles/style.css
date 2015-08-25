@@ -6,6 +6,25 @@ html,body{
 .bubble{
   line-height: 0.2;
 }
+.qv-global-selections {
+  position: fixed;
+  animation-name: slide;
+  animation: slide 1s linear ;
+  -moz-animation: slide 1s linear ;
+  -webkit-animation: slide 1s linear ;
+  -ms-animation: slide 1s linear ;
+  -o-animation: slide 1s linear ;
+}
+
+@-webkit-keyframes slide {
+  0% { left: 2000px;opacity: 0.2 }
+  100% { left: 0px ;opacity: 1}
+}
+
+@keyframes slide {
+  0% { left: 2000px; opacity: 0.2}
+  100% { left: 0px ;opacity: 1}
+}
 .qv-gs-scroll-container .qv-gs-scroll-area .qv-gs-listbox,.qv-global-selections .qv-gs-header .qv-gs-searchfield{
   border: 0px;
 }

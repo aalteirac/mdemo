@@ -90,8 +90,6 @@ function initTheme(){
         hpanel.remove();
     });
 
-    // Open close right sidebar
-
 
     // Function for small header
     $('.small-header-action').click(function(event){
