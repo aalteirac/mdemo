@@ -1,4 +1,35 @@
+.settings.iconright{
+    margin-right: 30px;
+    font-size: x-large;
+    margin-top: 20px;
+}
+.iconright:hover,.sv:hover,.cl:hover{
+    color: #78B83E;
+}
+.settings{
+    color: white;
+    margin-top: 50px;
+}
+.settings.setMenu{
+    height: 30px;
+    opacity: 0;
+    font-size: x-large;
+    transition: all 0.4s ease 0s;
+}
 
+#drop_zone {
+    border: 2px dashed #bbb;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    color: #bbb;
+    margin-left: 18px;
+    margin-right: 33px;
+    height: 40px;
+    margin-bottom: 10px;
+}
 
 .qvplaceholder.drop-hover{
     border: 3px solid #ff8e00;
