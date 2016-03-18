@@ -16,7 +16,7 @@ Save & restore demo :
 
 TESTED ONLY WITH CHROME and FX. Could work on IE11 and Edge...
 
-*****QLIK SENSE SERVER 1.1, 2.0.2, 2.2**************************************
+*****QLIK SENSE SERVER 1.1, 2.0, 2.2***************************************
 
 INSTALLATION:
 
