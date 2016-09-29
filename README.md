@@ -1,14 +1,22 @@
 A Qlik Sense Mashups demo Extension for Qlik Sense Desktop and Qlik Sense Server
 
-*****NEW TEMPLATE IN THIS VERSION: MASHBOARD******
+*****NEW, SUCCESSFULLY TESTED ON QLIK SENSE 3.1 ****************************
+
+*****NEW FEATURE IN THE LATEST VERSION: Save and restore your settings******
+
+*****NEW TEMPLATE IN THE LATEST VERSION: LIGHTBOARD*************************
 
 Demo here:
 
 [![ScreenShot](https://raw.githubusercontent.com/aalteirac/mdemo/master/thumb.png)](https://www.youtube.com/watch?v=USFK1hh5DWY)
 
-TESTED ONLY WITH CHROME and FX. It could work on IE11, but I don't want to know ;-)
+Save & restore demo :
+[![ScreenShot](https://raw.githubusercontent.com/aalteirac/mdemo/master/thumbSave.png)](https://www.youtube.com/watch?v=a3oOzo8evhM)
 
-*****QLIK SENSE SERVER 1.1 AND 2.0***************
+
+TESTED ONLY WITH CHROME and FX. Could work on IE11 and Edge...
+
+*****QLIK SENSE SERVER 1.1, 2.0, 2.2, 3.0, 3.1*****************************
 
 INSTALLATION:
 
@@ -32,6 +40,6 @@ FOR QLIK SENSE SERVER
 
   RENAME the folder ( the zip name contains the branch name...):
 
-  From "mdemo-master" --> to "mdemo"
+  From "xxxx.mdemo-....." --> to "mdemo"
 
   Open a browser: http(s)://my_senseserver/resources/mdemo/index.html

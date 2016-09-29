@@ -4,10 +4,12 @@ define("text!selectorBox.html", [], function() {
         '    <ul style="position:relative" class="qv sidebar-nav">' +
         '        <li class="qv sidebar-brand"><a>Start Mashup\'s !</a>' +
         '        </li>' +
-        '        <li><a style="padding-left:100px;margin-bottom: 80px"title="Clear Custom Text" href="javascript:void(0)" onclick="localStorage.clear();window.location = window.location">Clear Saved Information</a>'+
+        '        <li class="qv settings iconright pull-right"><span class="qv glyphicon glyphicon-edit" ng-click="expandSettings()" title="Settings...">'+
         '        </li>'+
-//        '        <li><a style="margin-bottom: 40px;padding-left:100px;"title="Right-click on any object to switch Selections box..." href="javascript:void(0)" ng-click="toggleSel()">Toggle Selections</a>'+
-//        '        </li>'+
+        '        <li class="qv settings setMenu">' +
+        '            <span class="qv glyphicon glyphicon-save sv" ng-click="saveIt()" title="Save Settings..."></span><span ng-click="reset(true)" class="cl qv glyphicon glyphicon-trash" title="Clear Settings"></span>'+
+        '           <div><div id="drop_zone">Drop Saved Config file</div></div>'+
+        '       </li>'+
         '        <li style="margin-bottom: 20px" class="qv">'+
         '            <div style="margin-left:8px" class="qv btn-group">'+
         '                <button style="height:48px;color:#6D6D6D;width:299px;text-align:left" type="button" class="qv btn btn-default dropdown-toggle" data-toggle="dropdown">'+
@@ -67,7 +69,7 @@ define("text!selectorBox.html", [], function() {
         '                            data-type="{{object.type}}"'+
         '                            ng-mouseenter="selectObject($event)"'+
         '						title="{{object.title}}"> '+
-        '							<div ng-if="object.icon" class="icon-{{object.icon}} qui-list-icon"></div>'+
+        '							<div ng-if="object.icon" class="iconlist icon-{{object.icon}} qui-list-icon"></div>'+
         '                            <div ng-if="object.qMeta!=undefined" class="qui-list-text ng-isolate-scope ng-binding" qve-highlight="" text="{{object.qMeta.title}}">{{object.qMeta.title}}</div>'+
         '                            <div ng-if="object.qMeta==undefined" class="qui-list-text ng-isolate-scope ng-binding" qve-highlight="" text="{{object.title}}">{{object.title}}</div>'+
         '						</li> '+
@@ -81,7 +83,7 @@ define("text!selectorBox.html", [], function() {
         '                            data-app="{{appId}}"'+
         '                            ng-mouseenter="selectObject($event)"'+
         '							title="{{object.title}}"> '+
-        '							<div ng-if="object.icon" class="icon-{{object.icon}} qui-list-icon"></div> '+
+        '							<div ng-if="object.icon" class="iconlist icon-{{object.icon}} qui-list-icon"></div> '+
         '							<div class="snapshot-text" qve-highlight text="{{object.title}}"> {{object.title}} '+
         '							</div> '+
         '								<p style="position: absolute;top:16px" class="snapshot-date ng-binding">{{formatDate(object.timestamp)}}</p> '+
@@ -189,9 +191,10 @@ require.config( {
     paths: {
         text:pathRoot +'mdemo/js/text',
         jquery: pathRoot +'mdemo/js/jquery.min',
-        boot:   pathRoot +'mdemo/js/bootstrap.min'
+        boot:   pathRoot +'mdemo/js/bootstrap.min',
+        fileS:  pathRoot +'mdemo/js/FileSaver'
     }
-} )( ["text!selectorBox.html","js/qlik","jquery","utils","boot"], function (elem,qlik,$,util ) {
+} )( ["text!selectorBox.html","js/qlik","jquery","utils","boot","fileS"], function (elem,qlik,$,util ) {
 
     function makeDraggy(el){
         $(el).attr("draggable","true");
@@ -255,6 +258,8 @@ require.config( {
         return b;
     }
 
+
+
       var  confInt = {
             host: window.location.hostname,
             prefix: "/",
@@ -272,12 +277,13 @@ require.config( {
                 scope.templates = [
                     {name:' SmartBoard', path:'templates/admin/ifr.html'},
                     {name:' MashBoard', path:'templates/startapp/ifr.html'},
+                    {name:' LightBoard', path:'templates/lightboard/ifr.html'},
                     {name:' Elegant', path:'templates/unify/ifr.html'},
                     {name:' Mosaic', path:'templates/mosaic/ifr.html'},
                     {name:' Rotating', path:'templates/rotating/ifr.html'},
                     {name:' Carousel', path:'templates/carousel/ifr.html'},
                     {name:' DAR', path:'templates/tabsDAR/ifr.html'},
-                    {name:' Funny', path:'templates/funny/ifr.html'}
+                    {name:' Funny', path:'templates/funny/ifr.html'},
 
                 ];
                 scope.curApp='Select Application...';
@@ -306,6 +312,10 @@ require.config( {
                             })
                         }), scope.apps = c, scope.appId && populateAll()
                     }, confInt)
+                    var dropZone = document.getElementById('drop_zone');
+                    dropZone.addEventListener('dragover', handleDragOver, false);
+                    dropZone.addEventListener('drop', handleFileSelect, false);
+                    dropZone.addEventListener('dragleave', handleDragOut, false);
                 };
                 var d = {
                         visualizations: {
@@ -332,6 +342,57 @@ require.config( {
                         }), c
                     };
                 $.extend(scope, e);
+                var handleFileSelect=function (evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    var files = evt.dataTransfer.files; // FileList object.
+                    for (var i = 0, f; f = files[i]; i++) {
+                        var fr=new FileReader();
+                        fr.onload = function(e) {
+                            try {
+                                var storage = JSON.parse(e.target.result);
+                            }catch(err){
+                                alert("File content is wrong...");
+                                $('#drop_zone').css('border', '2px dashed #bbb')
+                                return;
+                            }
+                            localStorage.clear();
+                            for (var name in storage) {
+                                localStorage.setItem(name, storage[name] );
+                            }
+                            scope.reset(false);
+                        };
+                        fr.readAsText(f);
+                        $('#drop_zone').css('border', '2px dashed #bbb')
+                    }
+                };
+                scope.expandSettings=function(){
+                    if($('.setMenu').css('height')!="30px") {
+                        $('.setMenu').css('height', '30px');
+                        $('.setMenu').css('opacity', '0');
+                    }else{
+                        $('.setMenu').css('height', '145px');
+                        $('.setMenu').css('opacity', '1');
+                    }
+                },
+                scope.reset=function(del){
+                    if(del==true)
+                        localStorage.clear();
+                    var tp= scope.curTemplate;
+                    scope.encodeID= tp.substr(0,tp.lastIndexOf('/')+1)+"index.html?tms="+new Date().getTime()+"&app="+encodeURI(scope.appId);
+                    try{scope.$digest()()}catch(er){};
+                }
+                var handleDragOver=function (evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    evt.dataTransfer.dropEffect = 'copy';
+                    $('#drop_zone').css('border', '4px dashed #FFFFFF');
+                };
+                var handleDragOut=function (evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    $('#drop_zone').css('border', '2px dashed #bbb');
+                };
                 var populateAll = function() {
                     scope.apps.forEach(function(b, d) {
                         b.id === scope.appId && (scope.apps[d].app ? scope.app = scope.apps[d].app : scope.app = scope.apps[d].app = qlik.openApp(scope.appId, config),
@@ -343,6 +404,12 @@ require.config( {
                             )))
                     })
                 };
+                scope.saveIt=function(){
+                    var text=JSON.stringify(localStorage);
+                    //alert(text);
+                    var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+                    saveAs(blob, "myConfig.txt");
+                }
                 scope.selectTemplate=function(b){
                     var tp=b.currentTarget.getAttribute("data-id");
                     scope.encodeID= tp.substr(0,tp.lastIndexOf('/')+1)+"index.html?app="+encodeURI(scope.appId),
