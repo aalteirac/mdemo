@@ -1,3 +1,6 @@
+.iconlist{
+    margin-right: 8px;
+}
 .settings.iconright{
     margin-right: 30px;
     font-size: x-large;
@@ -92,6 +95,8 @@ section.configurator div.cnt div.scrollable {
 }
 section.configurator div.cnt ul li {
     cursor: pointer;
+    display: flex;
+    padding: 5px 5px 10px 10px;
 }
 section.configurator div.cnt ul li:hover,
 section.configurator div.cnt ul li.active {
@@ -185,132 +190,132 @@ section.configurator div.cnt.preview {
 }
 
 select#tempSelect option  {
-	background-image:url('../img/qlik.png');   
+    background-image:url('../img/qlik.png');
 }
 
 .qv.caret.big{
-	border-top: 8px solid;
-	border-right: 8px solid transparent;
-	border-left: 8px solid transparent;
-	margin-top: 15px;
-	float:right
+    border-top: 8px solid;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    margin-top: 15px;
+    float:right
 }
 .icon-qmc-App:before{
-	content:"\077";
-	font-size:24px;
+    content:"\077";
+    font-size:24px;
 }
 #sidebar-wrapper li{
-	border-bottom-width:0px;
+    border-bottom-width:0px;
 }
 
 #wrapper {
-  padding-left: 350px;
-  transition: all 0.4s ease 0s;
-  height:100%;
+    padding-left: 350px;
+    transition: all 0.4s ease 0s;
+    height:100%;
 }
 
 #sidebar-wrapper {
-  background: url('../img/qlik.png') no-repeat, #5b5a59;
-  margin-left: -350px;
-  left: 350px;
-  width: 350px;
-  position: fixed;
-  height: 100%;
-  z-index: 1000;
-  transition: all 0.4s ease 0s;
+    background: url('../img/qlik.png') no-repeat, #5b5a59;
+    margin-left: -350px;
+    left: 350px;
+    width: 350px;
+    position: fixed;
+    height: 100%;
+    z-index: 1000;
+    transition: all 0.4s ease 0s;
 }
 
 #page-content-wrapper {
-  width: 100%;
+    width: 100%;
 }
 
 .sidebar-nav {
-  position: absolute;
-  top: 0;
-  width: 350px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  cursor:pointer;
+    position: absolute;
+    top: 0;
+    width: 350px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    cursor:pointer;
 }
 
 .sidebar-nav .btn-group li:hover {
     background-color: #f2edf1;
 }
 .sidebar-nav li {
-  line-height: 40px;
-  text-indent: 10px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    line-height: 40px;
+    text-indent: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .sidebar-nav li a {
-  color: white;
-  display: block;
-  text-decoration: none;
+    color: white;
+    display: block;
+    text-decoration: none;
 }
 #sidebar-wrapper .panel-group div{
-	
-	padding: 0px 2px 0px 2px;
-	box-shadow:0 0px 0px rgba(0, 0, 0, 0.05);
+
+    padding: 0px 2px 0px 2px;
+    box-shadow:0 0px 0px rgba(0, 0, 0, 0.05);
 }
 #sidebar-wrapper .panel-inner div{
-	padding: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 
 #sidebar-wrapper .panel div{
-	padding: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 
 .panel a:hover {
-  
-  text-decoration: none;
+
+    text-decoration: none;
 }
 .sidebar-nav li a:hover {
-  color: #fff;
-  text-decoration: none;
+    color: #fff;
+    text-decoration: none;
 }
 
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .sidebar-nav > .sidebar-brand {
-  height: 65px;
-  line-height: 60px;
-  font-size: 18px;
+    height: 65px;
+    line-height: 60px;
+    font-size: 18px;
 }
 
 .sidebar-nav > .sidebar-brand a {
-  color: white;
-  padding-left:100px;
+    color: white;
+    padding-left:100px;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
-  color: #fff;
-  background: none;
+    color: #fff;
+    background: none;
 }
 
 .content-header {
-  height: 65px;
-  line-height: 65px;
+    height: 65px;
+    line-height: 65px;
 }
 
 
 .content-header h1 {
-  margin: 0;
-  margin-left: 20px;
-  line-height: 65px;
-  display: inline-block;
+    margin: 0;
+    margin-left: 20px;
+    line-height: 65px;
+    display: inline-block;
 }
 
 #menu-toggle {
-  display: none;
+    display: none;
 }
 
 .inset {
-  padding: 20px;
+    padding: 20px;
 }
 
 /* @media (max-width:1224px) {
