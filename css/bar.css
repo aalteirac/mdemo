@@ -1,6 +1,3 @@
-.iconlist{
-   margin-right: 8px;
-}
 .settings.iconright{
     margin-right: 30px;
     font-size: x-large;
@@ -95,8 +92,6 @@ section.configurator div.cnt div.scrollable {
 }
 section.configurator div.cnt ul li {
     cursor: pointer;
-    display: flex;
-    padding: 5px 5px 10px 10px;
 }
 section.configurator div.cnt ul li:hover,
 section.configurator div.cnt ul li.active {
