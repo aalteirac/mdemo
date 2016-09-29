@@ -1,6 +1,6 @@
 A Qlik Sense Mashups demo Extension for Qlik Sense Desktop and Qlik Sense Server
 
-*****NEW, SUCCESSFULLY TESTED ON QLIK SENSE 2.2 ****************************
+*****NEW, SUCCESSFULLY TESTED ON QLIK SENSE 3.1 ****************************
 
 *****NEW FEATURE IN THE LATEST VERSION: Save and restore your settings******
 
@@ -16,7 +16,7 @@ Save & restore demo :
 
 TESTED ONLY WITH CHROME and FX. Could work on IE11 and Edge...
 
-*****QLIK SENSE SERVER 1.1, 2.0, 2.2***************************************
+*****QLIK SENSE SERVER 1.1, 2.0, 3.1***************************************
 
 INSTALLATION:
 
