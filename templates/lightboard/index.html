@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html qva-bootstrap="false">
 <head>
 
     <meta charset="utf-8">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="styles/style.css">
 
 </head>
-<body ng-controller="pager" >
+<body ng-controller="pager">
 
 <!-- Simple splash screen-->
 <div class="splash"> <div class="color-line"></div><div class="splash-title"><h1>Loading</h1><img src="images/loading-bars.svg" width="64" height="64" /> </div> </div>
@@ -71,7 +71,7 @@
                                 </td>
                                 <td>
                                     <a href="" ng-click="clear()">
-                                        <i class="pe pe-7s-junk text-danger"></i>
+                                        <i class="pe pe-7s-junk text-success"></i>
                                         <h5>Clear</h5>
                                     </a>
                                 </td>
@@ -82,7 +82,7 @@
                 </li>
                 <li>
                     <a href="#" id="sidebar" ng-click="openMenu($event)" class="right-sidebar-toggle label-menu-corner">
-                        <i class="pe-7s-upload pe-7s-filter"></i>
+                        <i class="pe-7s-upload pe-7s-news-paper"></i>
                         <span ng-show="getSelCount()!=0" class="label label-success">{{getSelCount()}}</span>
                     </a>
                 </li>
