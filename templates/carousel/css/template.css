@@ -8,6 +8,13 @@
 
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
+#CurrentSelections{
+  z-index:2;
+}
+.qv-global-selections {
+  left: 0;
+  top: 0px;
+}
 html{
 	
 }
