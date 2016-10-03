@@ -86,7 +86,7 @@ define("text!selectorBox.html", [], function() {
         '							<div ng-if="object.icon" class="iconlist icon-{{object.icon}} qui-list-icon"></div> '+
         '							<div class="snapshot-text" qve-highlight text="{{object.title}}"> {{object.title}} '+
         '							</div> '+
-        '								<p style="position: absolute;top:16px" class="snapshot-date ng-binding">{{formatDate(object.timestamp)}}</p> '+
+        '								<p style="position: absolute;top:26px" class="snapshot-date ng-binding">{{formatDate(object.timestamp)}}</p> '+
         '						</li> '+
         '					</ul> '+
         '				</div> '+

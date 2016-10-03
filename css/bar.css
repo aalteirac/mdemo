@@ -111,7 +111,7 @@ section.configurator div.cnt ul li.header.active {
     background: #b3b3b3;
 }
 section.configurator div.cnt ul div.snapshot-text {
-    position: absolute;
+    /*position: absolute;*/
     top: 0;
     white-space: nowrap;
     overflow: hidden;
