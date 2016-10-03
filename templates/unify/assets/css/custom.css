@@ -1,4 +1,11 @@
-/* Add here all your css styles (customizations) */
+div.qv-global-selections {
+    margin-left: 100px;
+    margin-right: auto;
+    top: 56px;
+    width: 80%;
+    height: -webkit-calc(100% - 276px);
+    height: calc(100% - 276px);
+}
 .qvplaceholder.drop-hover{
     border: 3px solid #ff8e00;
 }

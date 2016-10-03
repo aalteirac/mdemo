@@ -1,4 +1,8 @@
-/* Add here all your css styles (customizations) */
+div.qv-global-selections {
+    height: -webkit-calc(100% - 76px);
+    height: calc(100% - 76px);
+
+}
 article.ui-sortable{
  position: inherit;
 }
