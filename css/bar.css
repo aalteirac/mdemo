@@ -254,6 +254,21 @@ select#tempSelect option  {
     display: block;
     text-decoration: none;
 }
+.sidebar-nav li a:visited {
+    color: white;
+    display: block;
+    text-decoration: none;
+}
+.sidebar-nav li a:hover {
+    color: #78B83E;
+    text-decoration: none;
+}
+.settings .lui-icon{
+font-size: 22px
+}
+.settings.opennew{
+    margin-top: 22px;
+}
 #sidebar-wrapper .panel-group div{
 
     padding: 0px 2px 0px 2px;
@@ -272,7 +287,7 @@ select#tempSelect option  {
     text-decoration: none;
 }
 .sidebar-nav li a:hover {
-    color: #fff;
+    color: #78B83E;
     text-decoration: none;
 }
 
