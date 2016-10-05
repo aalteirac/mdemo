@@ -124,8 +124,8 @@ function getURLParameter(a) {
 }
 
 function excludeBS(){
-    $("#main").find('*').each(function(){
-        if(!$(this).hasClass('qvobject'))
-            $(this).addClass('qv');
-    });
+    //$("#main").find('*').each(function(){
+    //    if(!$(this).hasClass('qvobject'))
+    //        $(this).addClass('qv');
+    //});
 }
