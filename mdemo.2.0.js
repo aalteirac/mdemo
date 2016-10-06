@@ -80,8 +80,14 @@ if(window.location.port==""){
 else
     portUrl=window.location.port;
 var pathRoot="//localhost:4848/extensions/";
-if(portUrl!="4848")
-    pathRoot="//"+rootPath+":"+portUrl+"/resources/";
+if(portUrl!="4848"){
+    if(portUrl!="443" && portUrl!="80" )
+        pathRoot="//"+rootPath+":"+portUrl+"/resources/";
+    else
+        pathRoot="//"+rootPath+"/resources/";
+
+}
+
 var config = {
     host: window.location.hostname,
     prefix: "/",
