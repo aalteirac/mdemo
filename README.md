@@ -1,6 +1,6 @@
 A Qlik Sense Mashups demo Extension for Qlik Sense Desktop and Qlik Sense Server
 
-***When upgrade to from an old version, be sure to clear the browser cache !***
+***When upgrade from an old version, be sure to clear the browser cache !***
 
 *****NEW, SUCCESSFULLY TESTED ON QLIK SENSE 3.1 ****************************
 
