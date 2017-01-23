@@ -69,10 +69,12 @@ require.config({
 
     restoreObj(app);
 });
-angular.module('app', [])
-    .controller('pager', ['$scope', function pager($scope) {
-        $scope.page = "pages/dashboard.html";
 
+//define("client.views/global-selections/global-selections-service",["jquery","qvangular","client.views/global-selections/global-selections","client.views/mobile-selections/mobile-selections","client.utils/state","general.utils/responsive-state","core.models/app"],function(a,b,c,d,e,f,g){b.service("qvGlobalSelectionsService",["$document",function(b){function h(a){return{$container:void 0,$app:a,getComponent:function(){return f.isSmallDevice?d:c},setup:function(){f.ViewChanged.bind(i)},destroy:function(){f.ViewChanged.unbind(i)}}}function i(){k(o.select[g.current.id]),j(o.select[g.current.id])}function j(a){a.$container=angular.element("<div>"),b.find("body").append(a.$container),a.$container.showComponent(a.getComponent(),["$scope",function(b){b.app=a.$app}]),a.setup()}function k(a){a.$container&&(a.$container.remove(),a.$container=void 0),a.destroy()}function l(a){return!(!a||!a.$container)}function m(b){b&&l(b)?(k(b),a("body").removeClass("qv-global-selections-enabled")):(e.setState(e.States.analysis),a("body").addClass("qv-global-selections-enabled"),j(b))}var n,o={select:{}},p=null,q={},r={},s={};
+angular.module('app', [])
+    .controller('pager', ['$scope','qvGlobalSelectionsService', function pager($scope,other) {
+        $scope.page = "pages/dashboard.html";
+        console.log(other);
         $scope.init = function () {
             initTheme();
         };
@@ -87,14 +89,15 @@ angular.module('app', [])
         };
         $scope.getSelCount = function () {
             try {
-                return $scope.$$nextSibling.$$childHead.nbrSelections;
+                other.setShowFields(true);
+                return other.getSelectionCount();
             }
             catch (e) {
                 return 0;
             }
         }
         $scope.openMenu = function (e) {
-            $scope.$$nextSibling.$$childHead.toggleGlobalSelection(e);
+            other.toggleGlobalSelection();
             //$('#right-sidebar').toggleClass('sidebar-open');
 
         };
