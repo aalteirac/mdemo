@@ -65,7 +65,7 @@ function makeDroppy() {
         event.preventDefault();
         $(this).removeClass("drop-hover");
     }).on('drop', function (event) {
-        var app = qlik.openApp(decodeURI(getURLParameter('app')), config);
+        var app = curApp;
         $(this).removeClass("drop-hover");
         event.preventDefault();
         $(this).empty();
@@ -74,14 +74,14 @@ function makeDroppy() {
         $(this).removeClass('qv');
         $(this).removeClass('qvtarget');
         if (type != 'snapshot') {
-            qlik.openApp(app.id).getObject($('#CurrentSelections'), 'CurrentSelections');
+            curApp.getObject($('#CurrentSelections'), 'CurrentSelections');
             localStorage.setItem(this.id + '#' + app.id, id);
-            qlik.openApp(app.id).getObject(this, id).then(function (o) {
+            curApp.getObject(this, id).then(function (o) {
             });
         }
         else {
             localStorage.setItem(this.id + '#' + app.id, id + '#snap');
-            qlik.openApp(app.id).getSnapshot(this, id).then(function () {
+            curApp.getSnapshot(this, id).then(function () {
             });
         }
     })
