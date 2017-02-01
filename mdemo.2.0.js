@@ -212,7 +212,7 @@ require.config( {
 
                     };
                 scope.init = function() {
-                    jQuery.event.props.push('dataTransfer');
+                    //jQuery.event.props.push('dataTransfer');
                     qlik.getAppList(function(b) {
                         var c = [];
                         b.forEach(function(a) {

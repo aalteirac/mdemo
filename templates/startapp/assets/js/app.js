@@ -26,9 +26,9 @@ $(document).ready(function() {
 function goApp(el) {
 
  	//Disable certain links
-    $('a[href^=#]').click(function (e) {
-        e.preventDefault()
-    })
+    //$('a[href^=#]').click(function (e) {
+    //    e.preventDefault()
+    //})
 
     //------------- Highlight code  -------------//
     hljs.initHighlightingOnLoad();

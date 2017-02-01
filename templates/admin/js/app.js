@@ -662,7 +662,7 @@ var calc_navbar_height = function() {
 	
 			//add a mark [+] to a multilevel menu
 			$this.find("li").each(function() {
-				if ($(this).find("ul").size() !== 0) {
+				if ($(this).find("ul").length !== 0) {
 					//add the multilevel sign next to the link
 					$(this).find("a:first").append("<b class='collapse-sign'>" + opts.closedSign + "</b>");
 	
@@ -684,7 +684,7 @@ var calc_navbar_height = function() {
 	
 			$this.find("li a").click(function() {
 	
-				if ($(this).parent().find("ul").size() !== 0) {
+				if ($(this).parent().find("ul").length !== 0) {
 	
 					if (opts.accordion) {
 						//Do nothing when the list is open
