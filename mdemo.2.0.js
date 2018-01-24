@@ -1,4 +1,5 @@
 
+
 define("utils", [], function() {
 
     function a(a) {
@@ -212,8 +213,11 @@ require.config( {
 
                     };
                 scope.init = function() {
+					qlik.setOnError( function ( error ) {
+						console.log("pas glop")
+					} );
                     //jQuery.event.props.push('dataTransfer');
-                     qlik.getGlobal().getAppList(function(b) {
+                     qlik.getAppList(function(b) {
                         var c = [];
                         b.forEach(function(a) {
                             c.push({
@@ -303,9 +307,12 @@ require.config( {
                     evt.preventDefault();
                     $('#drop_zone').css('border', '2px dashed #bbb');
                 };
+				var openDoc=function(id,config){
+					return qlik.openApp(id, config);
+				}
                 var populateAll = function() {
                     scope.apps.forEach(function(b, d) {
-                        b.id === scope.appId && (scope.apps[d].app ? scope.app = scope.apps[d].app : scope.app = scope.apps[d].app = qlik.openApp(scope.appId, config),
+                        b.id === scope.appId && (scope.apps[d].app ? scope.app = scope.apps[d].app : scope.app = scope.apps[d].app = openDoc(scope.appId, config),
                             scope.app && (scope.obj = scope.sheet = scope.snapshot = null,
                             scope.app.objects ? (scope.objects = scope.app.objects, scope.snapshots = scope.app.snapshots,
                             scope.bookmarks = scope.app.bookmarks) : (
