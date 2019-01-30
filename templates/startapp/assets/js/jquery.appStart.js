@@ -140,7 +140,7 @@
             //activate mousewheel plugin
             this.mouseWheel();
             //activate retina ready plugin
-            this.retinaReady();
+            //this.retinaReady();
             //toggle sidebar
             this.toggleSidebar();
             //toggle right sidebar
