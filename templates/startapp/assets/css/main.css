@@ -900,6 +900,7 @@ body.full-screen #header {
   outline: none !important;
 }
 #preloader2 {
+  display:none;	
   position: absolute;
   top: 53px;
   left: 3px;
